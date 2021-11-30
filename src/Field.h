@@ -47,6 +47,15 @@ void deinitField(Field *);
 unsigned char *getDataAt(Field *, Point p);
 
 /**
+ * @brief 指定位置の値を設定
+ * 
+ * @param f 探索対象のフィールド
+ * @param p 探索対象の点
+ * @param value 設定したい値
+ */
+void setDataAt(Field *f, Point p, unsigned char value);
+
+/**
  * @brief 位置と方向を指定してフィールド内を探索
  * 
  * @param f 探索対象のフィールド
