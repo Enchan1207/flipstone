@@ -10,8 +10,18 @@ cmake_minimum_required(VERSION 3.21)
 # プロジェクト名, 言語
 project(linear_search C)
 
-## 生成する実行ファイルの構成
+# インクルードディレクトリ
 include_directories(/usr/local/include)
+
+# リンクディレクトリ
 link_directories(/usr/local/lib)
-add_executable(main.out src/main.c src/Field.h src/Field.c src/Search.c src/Point.h)
-target_link_libraries(main.out urandom)
+
+# サブディレクトリを追加
+add_subdirectory(src/Field)
+add_subdirectory(src/Point)
+
+# ターゲット生成
+add_executable(main.out src/main.c)
+
+# ターゲットにライブラリをリンク
+target_link_libraries(main.out field point urandom)
