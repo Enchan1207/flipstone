@@ -10,6 +10,10 @@
 
 #include "Point.h"
 
+#define REVERSI_NONE 0x00
+#define REVERSI_BLACK 0x01
+#define REVERSI_WHITE 0x02
+
 /**
  * @brief フィールド
  */
