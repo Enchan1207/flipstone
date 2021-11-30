@@ -68,3 +68,50 @@ int getTogglableCount(Field* f, Point p, unsigned char value) {
 
     return allTogglableCount > 0 ? allTogglableCount : REVERSI_UNPLACABLE;
 }
+
+int putStoneAt(Field* f, Point p, unsigned char value) {
+    int togglableCount = getTogglableCount(f, p, value);
+
+    // 置けなければ失敗する
+    if (togglableCount == REVERSI_UNPLACABLE) {
+        return REVERSI_UNPLACABLE;
+    }
+
+    // 石を置いて
+    setDataAt(f, p, value);
+
+    // ひっくり返してゆく
+    for (int vy = -1; vy <= 1; vy++) {
+        for (int vx = -1; vx <= 1; vx++) {
+            if (vx == 0 && vy == 0) {
+                continue;
+            }
+
+            // 探索し、
+            unsigned char cellbuf[8] = {0};
+            unsigned char searchLength = search(f, p, vx, vy, cellbuf);
+
+            // 端っこにぶち当たったら次へ
+            if (searchLength < 2) {
+                continue;
+            }
+
+            // 探索結果について、
+            unsigned char inversedValue = value == REVERSI_BLACK ? REVERSI_WHITE : REVERSI_BLACK;  // 置かない方の石
+            for (int i = 1; i < searchLength; i++) {
+                // 空白か自分と同じ色の石が来たらループを抜ける
+                if (cellbuf[i] != inversedValue) {
+                    break;
+                }
+
+                // 対象の位置を特定して、石を置き換える
+                Point target;
+                target.x = p.x + vx * i;
+                target.y = p.y + vy * i;
+                setDataAt(f, target, value);
+            }
+        }
+    }
+
+    return togglableCount;
+}

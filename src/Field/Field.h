@@ -14,6 +14,7 @@
 #define REVERSI_BLACK 0x01
 #define REVERSI_WHITE 0x02
 
+#define REVERSI_OK 0x00
 #define REVERSI_UNPLACABLE -1
 
 /**
@@ -72,7 +73,7 @@ void setDataAt(Field *f, Point p, unsigned char value);
 int search(Field *f, Point p, char vx, char vy, unsigned char *buf);
 
 /**
- * @brief 指定位置に指定種別の石を置けるかを返す
+ * @brief 指定位置に指定種別の石をいくつ置けるか返す
  * 
  * @param f 探索対象のフィールド
  * @param p 石を置く場所
@@ -80,5 +81,15 @@ int search(Field *f, Point p, char vx, char vy, unsigned char *buf);
  * @return int ひっくり返せる石の数 / REVERSI_UNPLACABLE
  */
 int getTogglableCount(Field *f, Point p, unsigned char value);
+
+/**
+ * @brief 指定位置に石を置く
+ * 
+ * @param f 対象のフィールド
+ * @param p 石を置く場所
+ * @param value 置きたい石の種類
+ * @return int ひっくり返した石の数 / REVERSI_UNPLACABLE
+ */
+int putStoneAt(Field *f, Point p, unsigned char value);
 
 #endif
