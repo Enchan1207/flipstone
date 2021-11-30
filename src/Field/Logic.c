@@ -4,7 +4,7 @@
 
 #include "Field.h"
 
-int isPlacableAt(Field* f, Point p, unsigned char value) {
+int getTogglableCount(Field* f, Point p, unsigned char value) {
     unsigned char* cell = getDataAt(f, p);
 
     // 範囲外,値が不正ならスキップ
@@ -21,6 +21,7 @@ int isPlacableAt(Field* f, Point p, unsigned char value) {
     }
 
     // 全方向について
+    unsigned int allTogglableCount = 0;
     for (int vy = -1; vy <= 1; vy++) {
         for (int vx = -1; vx <= 1; vx++) {
             if (vx == 0 && vy == 0) {
@@ -58,12 +59,12 @@ int isPlacableAt(Field* f, Point p, unsigned char value) {
                 }
             }
 
-            // 同じ石が見つかっていたら、そこには石を置ける
+            // 石を置ける場合はtogglableCount総計に加算
             if (hasSameStone && togglableCount > 0) {
-                return REVERSI_PLACABLE;
+                allTogglableCount += togglableCount;
             }
         }
     }
 
-    return REVERSI_UNPLACABLE;
+    return allTogglableCount > 0 ? allTogglableCount : REVERSI_UNPLACABLE;
 }

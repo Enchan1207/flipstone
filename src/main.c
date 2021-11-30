@@ -35,19 +35,18 @@ void dumpField(Field *f) {
                 continue;
             }
 
-            if (isPlacableAt(f, point, REVERSI_BLACK) == REVERSI_PLACABLE) {
-                printf("\033[41m");
-            }
-
             if (*cell == REVERSI_BLACK) {
                 printf("○");
             } else if (*cell == REVERSI_WHITE) {
                 printf("●");
             } else {
-                printf(" ");
+                int togglableCount = getTogglableCount(f, point, REVERSI_BLACK);
+                if (togglableCount > 0) {
+                    printf("\033[41m%d\033[0m", togglableCount);
+                } else {
+                    printf(" ");
+                }
             }
-
-            printf("\033[0m");
         }
         printf("\n");
     }

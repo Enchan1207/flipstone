@@ -14,8 +14,7 @@
 #define REVERSI_BLACK 0x01
 #define REVERSI_WHITE 0x02
 
-#define REVERSI_PLACABLE 0x01
-#define REVERSI_UNPLACABLE 0x00
+#define REVERSI_UNPLACABLE -1
 
 /**
  * @brief フィールド
@@ -78,8 +77,8 @@ int search(Field *f, Point p, char vx, char vy, unsigned char *buf);
  * @param f 探索対象のフィールド
  * @param p 石を置く場所
  * @param value 置きたい石の種類(REVERSI_*)
- * @return int REVERSI_PLACABLE / REVERSI_UNPLACABLE
+ * @return int ひっくり返せる石の数 / REVERSI_UNPLACABLE
  */
-int isPlacableAt(Field *f, Point p, unsigned char value);
+int getTogglableCount(Field *f, Point p, unsigned char value);
 
 #endif
