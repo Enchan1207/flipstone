@@ -8,6 +8,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "Point.h"
+
 typedef struct {
     unsigned char width;
     unsigned char height;
@@ -16,9 +18,12 @@ typedef struct {
     unsigned char *field;
 } Field;
 
-void initField(Field *, unsigned char, unsigned char);
+// フィールド初期化
+void initField(Field *f, unsigned char width, unsigned char height);
 void deinitField(Field *);
 
-unsigned char *getDataAt(Field *, unsigned char, unsigned char);
+// 探索
+unsigned char *getDataAt(Field *, Point p);
+int search(Field *f, Point p, char vx, char vy, unsigned char *buf);
 
 #endif

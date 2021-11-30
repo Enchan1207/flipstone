@@ -21,12 +21,3 @@ void initField(Field* f, unsigned char width, unsigned char height) {
 void deinitField(Field* f) {
     free(f->field);
 }
-
-unsigned char* getDataAt(Field* f, unsigned char x, unsigned char y) {
-    // 範囲外ならNULLを返す
-    if (x >= f->width || y >= f->height) {
-        return NULL;
-    }
-
-    return &(f->field[y * f->width + x]);
-}
