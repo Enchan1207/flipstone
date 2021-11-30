@@ -32,9 +32,13 @@ void dumpField(Field *f) {
             point.y = y;
             unsigned char *cell = getDataAt(f, point);
             if (cell != NULL) {
-                printf("%02X ", *cell);
-            } else {
-                printf(".. ");
+                if (*cell == REVERSI_BLACK) {
+                    printf("○");
+                } else if (*cell == REVERSI_WHITE) {
+                    printf("●");
+                } else {
+                    printf(" ");
+                }
             }
         }
         printf("\n");
