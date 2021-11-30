@@ -17,3 +17,6 @@ configure:
 		-S. \
 		-Bbuild \
 		-GNinja
+
+run:
+	./build/main.out

@@ -41,8 +41,25 @@ int main(int argc, char const *argv[]) {
     printf("-----------------------\n");
 
     // 位置と方向を指定して探索
-    const unsigned char sx = 0, sy = 0;  // 探索開始点xy
-    const char vx = 0, vy = 1;           // 探索方向xy (-1~1)
+    const unsigned char sx = 3, sy = 5;  // 探索開始点xy
+    const char vx = 1, vy = -1;          // 探索方向xy (-1~1)
+    unsigned char x = sx, y = sy;        // 現在読んでいる場所
+
+    unsigned char *cell = NULL;
+
+    do {
+        // 指定位置のデータを取得
+        cell = getDataAt(F, x, y);
+        if (cell == NULL) {
+            break;
+        }
+
+        printf("%02X ", *cell);
+
+        x += vx;
+        y += vy;
+    } while (cell != NULL);
+    printf("\n");
 
     deinitField(F);
     return 0;
