@@ -14,6 +14,9 @@
 #define REVERSI_BLACK 0x01
 #define REVERSI_WHITE 0x02
 
+#define REVERSI_PLACABLE 0x01
+#define REVERSI_UNPLACABLE 0x00
+
 /**
  * @brief フィールド
  */
@@ -29,10 +32,8 @@ typedef struct {
  * @brief フィールド初期化
  * 
  * @param f 初期化対象のフィールド
- * @param width フィールドの幅
- * @param height フィールドの高さ
  */
-void initField(Field *f, unsigned char width, unsigned char height);
+void initField(Field *f);
 
 /**
  * @brief フィールドメモリの開放
@@ -70,5 +71,15 @@ void setDataAt(Field *f, Point p, unsigned char value);
  * @return int 探索できた長さ
  */
 int search(Field *f, Point p, char vx, char vy, unsigned char *buf);
+
+/**
+ * @brief 指定位置に指定種別の石を置けるかを返す
+ * 
+ * @param f 探索対象のフィールド
+ * @param p 石を置く場所
+ * @param value 置きたい石の種類(REVERSI_*)
+ * @return int REVERSI_PLACABLE / REVERSI_UNPLACABLE
+ */
+int isPlacableAt(Field *f, Point p, unsigned char value);
 
 #endif

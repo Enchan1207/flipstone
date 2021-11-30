@@ -12,6 +12,6 @@ project(Field C)
 
 ## 生成する実行ファイルの構成
 include_directories(../Point)
-add_library(field Field.h Field.c Search.c)
+add_library(field Field.h Field.c Search.c Logic.c)
 target_include_directories(field PUBLIC ./)
 target_link_directories(field PUBLIC ./)

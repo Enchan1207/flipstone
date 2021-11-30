@@ -14,7 +14,7 @@ int main(int argc, char const *argv[]) {
     // フィールド初期化
     Field field, *F;
     F = &field;
-    initField(F, 8, 8);
+    initField(F);
 
     dumpField(F);
 
@@ -31,15 +31,23 @@ void dumpField(Field *f) {
             point.x = x;
             point.y = y;
             unsigned char *cell = getDataAt(f, point);
-            if (cell != NULL) {
-                if (*cell == REVERSI_BLACK) {
-                    printf("○");
-                } else if (*cell == REVERSI_WHITE) {
-                    printf("●");
-                } else {
-                    printf(" ");
-                }
+            if (cell == NULL) {
+                continue;
             }
+
+            if (isPlacableAt(f, point, REVERSI_BLACK) == REVERSI_PLACABLE) {
+                printf("\033[41m");
+            }
+
+            if (*cell == REVERSI_BLACK) {
+                printf("○");
+            } else if (*cell == REVERSI_WHITE) {
+                printf("●");
+            } else {
+                printf(" ");
+            }
+
+            printf("\033[0m");
         }
         printf("\n");
     }

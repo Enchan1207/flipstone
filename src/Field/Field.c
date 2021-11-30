@@ -4,10 +4,10 @@
 
 #include "Field.h"
 
-void initField(Field* f, unsigned char width, unsigned char height) {
-    f->width = width;
-    f->height = height;
-    f->size = width * height;
+void initField(Field* f) {
+    f->width = 8;
+    f->height = 8;
+    f->size = 64;
 
     unsigned char* field;
     field = (unsigned char*)calloc(sizeof(unsigned char), f->size);
