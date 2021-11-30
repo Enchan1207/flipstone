@@ -6,6 +6,7 @@
 #include <stdlib.h>
 
 #include "Field.h"
+#include "Point.h"
 
 int main(int argc, char const *argv[]) {
     // フィールド初期化
@@ -29,7 +30,10 @@ int main(int argc, char const *argv[]) {
     printf("-------- Field --------\n");
     for (int y = 0; y < height; y++) {
         for (int x = 0; x < width; x++) {
-            unsigned char *cell = getDataAt(F, x, y);
+            Point point;
+            point.x = x;
+            point.y = y;
+            unsigned char *cell = getDataAt(F, point);
             if (cell != NULL) {
                 printf("%02X ", *cell);
             } else {
@@ -43,22 +47,16 @@ int main(int argc, char const *argv[]) {
     // 位置と方向を指定して探索
     const unsigned char sx = 3, sy = 5;  // 探索開始点xy
     const char vx = 1, vy = -1;          // 探索方向xy (-1~1)
-    unsigned char x = sx, y = sy;        // 現在読んでいる場所
+    Point start;                         // 現在読んでいる場所
+    start.x = sx;
+    start.y = sy;
 
-    unsigned char *cell = NULL;
+    unsigned char searchResult[8] = {0};
+    int readBytes = search(F, start, vx, vy, searchResult);
 
-    do {
-        // 指定位置のデータを取得
-        cell = getDataAt(F, x, y);
-        if (cell == NULL) {
-            break;
-        }
-
-        printf("%02X ", *cell);
-
-        x += vx;
-        y += vy;
-    } while (cell != NULL);
+    for (int i = 0; i < readBytes; i++) {
+        printf("%02X ", searchResult[i]);
+    }
     printf("\n");
 
     deinitField(F);
