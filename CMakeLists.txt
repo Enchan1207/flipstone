@@ -13,5 +13,5 @@ project(linear_search C)
 ## 生成する実行ファイルの構成
 include_directories(/usr/local/include)
 link_directories(/usr/local/lib)
-add_executable(main.out src/main.c src/field.h src/field.c)
+add_executable(main.out src/main.c src/Field.h src/Field.c src/Search.c src/Point.h)
 target_link_libraries(main.out urandom)

@@ -6,6 +6,9 @@
 #include <stdlib.h>
 
 #include "Field.h"
+#include "Point.h"
+
+void dumpField(Field *f);
 
 int main(int argc, char const *argv[]) {
     // フィールド初期化
@@ -26,10 +29,44 @@ int main(int argc, char const *argv[]) {
     F->field = randomArray;
 
     // 表示
+    dumpField(F);
+
+    // 位置と方向を指定して探索
+    const unsigned char sx = 3, sy = 5;  // 探索開始点xy
+    const char vx = 1, vy = -1;          // 探索方向xy (-1~1)
+    Point start;                         // 現在読んでいる場所
+    start.x = sx;
+    start.y = sy;
+
+    unsigned char searchResult[8] = {0};
+    int readBytes = search(F, start, vx, vy, searchResult);
+
+    for (int i = 0; i < readBytes; i++) {
+        // 検索結果の位置を取得
+        Point resultPoint;
+        resultPoint.x = sx + i * vx;
+        resultPoint.y = sy + i * vy;
+
+        printf("(%d, %d): %02X\n", resultPoint.x, resultPoint.y, searchResult[i]);
+
+        // 値を書き換える
+        setDataAt(F, resultPoint, 0xFF);
+    }
+    dumpField(F);
+
+    deinitField(F);
+    return 0;
+}
+
+void dumpField(Field *f) {
+    // 表示
     printf("-------- Field --------\n");
-    for (int y = 0; y < height; y++) {
-        for (int x = 0; x < width; x++) {
-            unsigned char *cell = getDataAt(F, x, y);
+    for (int y = 0; y < f->height; y++) {
+        for (int x = 0; x < f->width; x++) {
+            Point point;
+            point.x = x;
+            point.y = y;
+            unsigned char *cell = getDataAt(f, point);
             if (cell != NULL) {
                 printf("%02X ", *cell);
             } else {
@@ -39,11 +76,4 @@ int main(int argc, char const *argv[]) {
         printf("\n");
     }
     printf("-----------------------\n");
-
-    // 位置と方向を指定して探索
-    const unsigned char sx = 0, sy = 0;  // 探索開始点xy
-    const char vx = 0, vy = 1;           // 探索方向xy (-1~1)
-
-    deinitField(F);
-    return 0;
 }
