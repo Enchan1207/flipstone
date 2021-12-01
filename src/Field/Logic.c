@@ -96,15 +96,23 @@ int putStoneAt(Field* f, Point p, unsigned char value) {
                 continue;
             }
 
-            // 探索結果について、
-            unsigned char inversedValue = value == REVERSI_BLACK ? REVERSI_WHITE : REVERSI_BLACK;  // 置かない方の石
+            // どこまでひっくり返せるかを調べる
+            // (自分と同じ色の石が現れるまでの距離)
+            unsigned char toggleDist = 0;
             for (int i = 1; i < searchLength; i++) {
-                // 空白か自分と同じ色の石が来たらループを抜ける
-                if (cellbuf[i] != inversedValue) {
+                if (cellbuf[i] == value) {
                     break;
                 }
+                toggleDist = i;
+            }
 
-                // 対象の位置を特定して、石を置き換える
+            // お前一個もひっくり返せないんかーい
+            if (toggleDist == 0) {
+                continue;
+            }
+
+            // toggleDistまで(vx, vy)方向の石をひっくり返す
+            for (int i = 1; i < toggleDist + 1; i++) {
                 Point target;
                 target.x = p.x + vx * i;
                 target.y = p.y + vy * i;

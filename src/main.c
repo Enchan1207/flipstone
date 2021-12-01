@@ -21,18 +21,15 @@ int main(int argc, char const *argv[]) {
     Point p;
     p.x = 3;
     p.y = 2;
+    printf("Put stone at (%d, %d)\n", p.x, p.y);
     putStoneAt(F, p, REVERSI_WHITE);
     dumpField(F, REVERSI_BLACK);
 
     p.x = 2;
     p.y = 2;
+    printf("Put stone at (%d, %d)\n", p.x, p.y);
     putStoneAt(F, p, REVERSI_BLACK);
     dumpField(F, REVERSI_WHITE);
-
-    p.x = 3;
-    p.y = 1;
-    putStoneAt(F, p, REVERSI_WHITE);
-    dumpField(F, REVERSI_BLACK);
 
     deinitField(F);
     return 0;

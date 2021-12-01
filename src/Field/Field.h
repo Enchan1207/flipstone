@@ -73,7 +73,7 @@ void setDataAt(Field *f, Point p, unsigned char value);
 int search(Field *f, Point p, char vx, char vy, unsigned char *buf);
 
 /**
- * @brief 指定位置に指定種別の石をいくつ置けるか返す
+ * @brief 指定位置に指定種別の石を置いた時にひっくり返せる石の合計数を返す
  * 
  * @param f 探索対象のフィールド
  * @param p 石を置く場所

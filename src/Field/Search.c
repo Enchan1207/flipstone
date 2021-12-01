@@ -17,8 +17,8 @@ int search(Field* f, Point p, char vx, char vy, unsigned char* buf) {
             break;
         }
 
-        // 空白でなければ
-        if (cell == REVERSI_NONE) {
+        // 開始点以外が空白でなければ
+        if (((ptr - buf) > 0) && *cell == REVERSI_NONE) {
             break;
         }
 
