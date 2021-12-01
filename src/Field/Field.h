@@ -106,8 +106,9 @@ int hasPlacablePoint(Field *f, unsigned char value);
  * 
  * @param f 対象のフィールド
  * @param p 置く場所
+ * @param value 置きたい石
  */
-void decideStonePosition(Field *f, Point *p);
+void decideStonePosition(Field *f, Point *p, unsigned char value);
 
 /**
  * @brief 石の数を数える
