@@ -61,7 +61,7 @@ unsigned char *getDataAt(Field *, Point p);
 void setDataAt(Field *f, Point p, unsigned char value);
 
 /**
- * @brief 位置と方向を指定してフィールド内を探索
+ * @brief 位置と方向を指定して、REVERSI_NONEか端に当たるまでフィールド内を探索
  * 
  * @param f 探索対象のフィールド
  * @param p 探索開始点
