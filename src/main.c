@@ -57,7 +57,7 @@ int main(int argc, char const *argv[]) {
         if (isPlayerTurn) {
             inputPointToPlace(F, &p, currentStone);
         } else {
-            decideStonePosition(F, &p);
+            decideStonePosition(F, &p, currentStone);
         }
 
         // 石を置く
