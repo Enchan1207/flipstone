@@ -9,6 +9,7 @@
 #include "Point.h"
 
 void dumpField(Field *f, unsigned char targetStone);
+void inputPointToPlace(Field *f, Point *p, unsigned char targetStone);
 
 int main(int argc, char const *argv[]) {
     // フィールド初期化
@@ -24,6 +25,7 @@ int main(int argc, char const *argv[]) {
     unsigned char isPlayerTurn = 1;
 
     // ゲームループ
+    int isSkippedAtPreviousTurn = 0;  // ひとつ前のループでターンスキップしたか
     while (1) {
         unsigned char currentStone = isPlayerTurn ? playerStone : cpuStone;
         char *currentPlayerStrRepr = isPlayerTurn ? "Player" : "CPU";
@@ -32,16 +34,32 @@ int main(int argc, char const *argv[]) {
         printf("%s turn!\n", currentPlayerStrRepr);
         dumpField(F, currentStone);
 
+        // 置けるところがひとつもなければターンスキップ
+        if (hasPlacablePoint(F, currentStone) == REVERSI_UNPLACABLE) {
+            // 以前スキップしていた(互いに置けるところがない)ならゲーム終了
+            if (isSkippedAtPreviousTurn) {
+                break;
+            }
+
+            printf("No place to put stone! turn switching...\n");
+            isSkippedAtPreviousTurn = 1;
+
+            // ここにもターンスイッチ書くの腹立つな
+            isPlayerTurn = isPlayerTurn ? 0 : 1;
+
+            continue;
+        } else {
+            isSkippedAtPreviousTurn = 0;
+        }
+
         // どこに置くか?
         Point p;
         if (isPlayerTurn) {
-            int isPlacable = REVERSI_UNPLACABLE;
-            while (isPlacable == REVERSI_UNPLACABLE) {
-                // TODO: scanfか何かでpを決める
-                isPlacable = getTogglableCount(F, p, currentStone);
-            }
+            inputPointToPlace(F, &p, currentStone);
         } else {
             // decideStonePosition(F, &p);
+            p.x = 0;
+            p.y = 0;
         }
 
         // 石を置く
@@ -100,4 +118,48 @@ void dumpField(Field *f, unsigned char targetStone) {
         printf("\n");
     }
     printf("-----------------------\n");
+}
+
+/**
+ * @brief フィールドに石を置く場所をコンソールから入力する
+ * 
+ * @param f 配置対象のフィールド
+ * @param p 置く場所
+ * @param targetStone 置きたい石
+ */
+void inputPointToPlace(Field *f, Point *p, unsigned char targetStone) {
+    int isPlacable = REVERSI_UNPLACABLE;
+    while (isPlacable == REVERSI_UNPLACABLE) {
+        // コンソールから入力
+        printf("Type place to put stone (format: \\d,\\d) >");
+        fflush(stdout);
+        char placebuffer[5] = {0};  // x,y\n\0 で入力される想定
+        fgets(placebuffer, 5, stdin);
+
+        // ガバガバリデーション
+        if (placebuffer[1] != ',') {
+            continue;
+        }
+
+        // 各桁を取り出して数値に変換 クソ実装すぎる
+        char *invalidStrBuffer = NULL;
+        unsigned char x = (unsigned char)strtol(placebuffer, &invalidStrBuffer, 10);
+        if (invalidStrBuffer[0] != ',') {
+            continue;
+        }
+        unsigned char y = (unsigned char)strtol(placebuffer + 2, &invalidStrBuffer, 10);
+        if (invalidStrBuffer[0] != '\n') {
+            continue;
+        }
+
+        p->x = x;
+        p->y = y;
+
+        fflush(stdin);  // クソ実装(fflush(stdin)は未定義)
+
+        isPlacable = getTogglableCount(f, *p, targetStone);
+        if (isPlacable == REVERSI_UNPLACABLE) {
+            printf("Invalid place!\n");
+        }
+    }
 }

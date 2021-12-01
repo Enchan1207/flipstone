@@ -123,3 +123,21 @@ int putStoneAt(Field* f, Point p, unsigned char value) {
 
     return togglableCount;
 }
+
+int hasPlacablePoint(Field* f, unsigned char value) {
+    int summary = 0;
+
+    // フィールドを全走査する
+    for (int y = 0; y < f->height; y++) {
+        for (int x = 0; x < f->width; x++) {
+            Point p;
+            p.x = x;
+            p.y = y;
+            if (getTogglableCount(f, p, value) != REVERSI_UNPLACABLE) {
+                summary++;
+            }
+        }
+    }
+
+    return summary > 0 ? summary : REVERSI_UNPLACABLE;
+}
