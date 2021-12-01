@@ -92,4 +92,21 @@ int getTogglableCount(Field *f, Point p, unsigned char value);
  */
 int putStoneAt(Field *f, Point p, unsigned char value);
 
+/**
+ * @brief 石を置ける場所があるか
+ * 
+ * @param f 対象のフィールド
+ * @param value 置きたい石
+ * @return int 置ける石の数 / REVERSI_UNPLACABLE
+ */
+int hasPlacablePoint(Field *f, unsigned char value);
+
+/**
+ * @brief AIが石を置く位置を決める
+ * 
+ * @param f 対象のフィールド
+ * @param p 置く場所
+ */
+void decideStonePosition(Field *f, Point *p);
+
 #endif
