@@ -10,6 +10,13 @@
 
 #include "Point.h"
 
+#define REVERSI_NONE 0x00
+#define REVERSI_BLACK 0x01
+#define REVERSI_WHITE 0x02
+
+#define REVERSI_OK 0x00
+#define REVERSI_UNPLACABLE -1
+
 /**
  * @brief フィールド
  */
@@ -25,10 +32,8 @@ typedef struct {
  * @brief フィールド初期化
  * 
  * @param f 初期化対象のフィールド
- * @param width フィールドの幅
- * @param height フィールドの高さ
  */
-void initField(Field *f, unsigned char width, unsigned char height);
+void initField(Field *f);
 
 /**
  * @brief フィールドメモリの開放
@@ -56,7 +61,7 @@ unsigned char *getDataAt(Field *, Point p);
 void setDataAt(Field *f, Point p, unsigned char value);
 
 /**
- * @brief 位置と方向を指定してフィールド内を探索
+ * @brief 位置と方向を指定して、REVERSI_NONEか端に当たるまでフィールド内を探索
  * 
  * @param f 探索対象のフィールド
  * @param p 探索開始点
@@ -66,5 +71,25 @@ void setDataAt(Field *f, Point p, unsigned char value);
  * @return int 探索できた長さ
  */
 int search(Field *f, Point p, char vx, char vy, unsigned char *buf);
+
+/**
+ * @brief 指定位置に指定種別の石を置いた時にひっくり返せる石の合計数を返す
+ * 
+ * @param f 探索対象のフィールド
+ * @param p 石を置く場所
+ * @param value 置きたい石の種類(REVERSI_*)
+ * @return int ひっくり返せる石の数 / REVERSI_UNPLACABLE
+ */
+int getTogglableCount(Field *f, Point p, unsigned char value);
+
+/**
+ * @brief 指定位置に石を置く
+ * 
+ * @param f 対象のフィールド
+ * @param p 石を置く場所
+ * @param value 置きたい石の種類
+ * @return int ひっくり返した石の数 / REVERSI_UNPLACABLE
+ */
+int putStoneAt(Field *f, Point p, unsigned char value);
 
 #endif
