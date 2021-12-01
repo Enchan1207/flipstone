@@ -1,8 +1,20 @@
-# linear_search
+# SimpleReversi(旧linear_search)
 
 ## Overview
 
-二次元配列を直線探索するテスト
+Cでかるーく実装したリバーシ
+
+## Installation
+
+```
+make build
+```
+
+## Usage
+
+```
+make run
+```
 
 ## License
 
