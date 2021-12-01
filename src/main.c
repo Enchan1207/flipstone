@@ -16,20 +16,45 @@ int main(int argc, char const *argv[]) {
     F = &field;
     initField(F);
 
-    dumpField(F, REVERSI_WHITE);
+    // それぞれのプレイヤーが置く石を決める
+    const unsigned char playerStone = REVERSI_BLACK;
+    const unsigned char cpuStone = REVERSI_WHITE;
 
-    Point p;
-    p.x = 3;
-    p.y = 2;
-    printf("Put stone at (%d, %d)\n", p.x, p.y);
-    putStoneAt(F, p, REVERSI_WHITE);
-    dumpField(F, REVERSI_BLACK);
+    // 今どっちが置いているか
+    unsigned char isPlayerTurn = 1;
 
-    p.x = 2;
-    p.y = 2;
-    printf("Put stone at (%d, %d)\n", p.x, p.y);
-    putStoneAt(F, p, REVERSI_BLACK);
-    dumpField(F, REVERSI_WHITE);
+    // ゲームループ
+    while (1) {
+        unsigned char currentStone = isPlayerTurn ? playerStone : cpuStone;
+        char *currentPlayerStrRepr = isPlayerTurn ? "Player" : "CPU";
+
+        // フィールドをダンプ
+        printf("%s turn!\n", currentPlayerStrRepr);
+        dumpField(F, currentStone);
+
+        // どこに置くか?
+        Point p;
+        if (isPlayerTurn) {
+            int isPlacable = REVERSI_UNPLACABLE;
+            while (isPlacable == REVERSI_UNPLACABLE) {
+                // TODO: scanfか何かでpを決める
+                isPlacable = getTogglableCount(F, p, currentStone);
+            }
+        } else {
+            // decideStonePosition(F, &p);
+        }
+
+        // 石を置く
+        printf("%s Placed Stone at (%d, %d).\n", currentPlayerStrRepr, p.x, p.y);
+        putStoneAt(F, p, currentStone);
+
+        // ターンをスイッチ
+        isPlayerTurn = isPlayerTurn ? 0 : 1;
+    }
+
+    // 試合終了!
+    printf("FINISHED!\n");
+    // TODO: 石を数えて勝者を決める
 
     deinitField(F);
     return 0;
