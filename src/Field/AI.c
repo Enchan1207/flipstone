@@ -18,6 +18,13 @@ void decideStonePosition(Field* f, Point* p, unsigned char value) {
     }
     unsigned int positionCount = searchPlacablePosition(f, value, placablePoints, searchLength);
 
+    // どこに設けなければ降参(お守りみたいなもの、実際はこの処理に入ることはない)
+    if (positionCount == 0) {
+        p->x = 0;
+        p->y = 0;
+        return;
+    }
+
     // それぞれの場所について、そこに置くことでひっくり返せる石の数を調べる
     unsigned char* togglableCounts;
     togglableCounts = (unsigned char*)calloc(sizeof(unsigned char), positionCount);
