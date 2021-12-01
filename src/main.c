@@ -35,6 +35,12 @@ int main(int argc, char const *argv[]) {
     return 0;
 }
 
+/**
+ * @brief フィールドの状態をコンソールにダンプする
+ * 
+ * @param f ダンプ対象のフィールド
+ * @param targetStone この引数に指定した石を置ける場所をハイライトする REVERSI_NONE を渡すとハイライトしない
+ */
 void dumpField(Field *f, unsigned char targetStone) {
     // 表示
     printf("-------- Field --------\n");
@@ -49,14 +55,18 @@ void dumpField(Field *f, unsigned char targetStone) {
                 continue;
             }
 
-            if (*cell == REVERSI_BLACK) {
-                printf("○");
-            } else if (*cell == REVERSI_WHITE) {
-                printf("●");
+            if (*cell != REVERSI_NONE) {
+                char *cellStrRepr = *cell == REVERSI_BLACK ? "○" : "●";
+                printf("%s", cellStrRepr);
             } else {
-                int togglableCount = getTogglableCount(f, point, targetStone);
-                if (togglableCount > 0) {
-                    printf("\033[41m%d\033[0m", togglableCount);
+                // 指示があれば置ける石の数を表示
+                if (targetStone != REVERSI_NONE) {
+                    int togglableCount = getTogglableCount(f, point, targetStone);
+                    if (togglableCount > 0) {
+                        printf("\033[41m%d\033[0m", togglableCount);
+                    } else {
+                        printf(" ");
+                    }
                 } else {
                     printf(" ");
                 }
