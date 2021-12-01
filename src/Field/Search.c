@@ -36,10 +36,16 @@ int search(Field* f, Point p, char vx, char vy, unsigned char* buf) {
             break;
         }
 
+        // 空白でなければ
+        if (cell == REVERSI_NONE) {
+            break;
+        }
+
         // バッファに積んでカーソルを進める
         *ptr = *cell;
         ptr++;
 
+        // 探索位置を進める
         current.x += vx;
         current.y += vy;
     }
