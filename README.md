@@ -1,4 +1,4 @@
-# SimpleReversi(旧linear_search)
+# SimpleReversi
 
 ## Overview
 
