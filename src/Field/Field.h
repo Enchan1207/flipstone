@@ -109,4 +109,13 @@ int hasPlacablePoint(Field *f, unsigned char value);
  */
 void decideStonePosition(Field *f, Point *p);
 
+/**
+ * @brief 石の数を数える
+ * 
+ * @param f 対象のフィールド
+ * @param value 数えたい石
+ * @return unsigned int フィールド上にある石の数
+ */
+unsigned int getStoneCount(Field *f, unsigned char value);
+
 #endif

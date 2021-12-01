@@ -70,7 +70,13 @@ int main(int argc, char const *argv[]) {
 
     // 試合終了!
     printf("FINISHED!\n");
-    // TODO: 石を数えて勝者を決める
+
+    unsigned int playerCount = getStoneCount(F, playerStone);
+    unsigned int cpuCount = getStoneCount(F, cpuStone);
+    printf("Player: %d CPU: %d\n", playerCount, cpuCount);
+
+    char *winner = playerCount > cpuCount ? "Player" : "CPU";
+    printf("%s win!\n", winner);
 
     deinitField(F);
     return 0;
