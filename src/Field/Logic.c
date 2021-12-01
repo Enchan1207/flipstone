@@ -99,11 +99,12 @@ int putStoneAt(Field* f, Point p, unsigned char value) {
             // どこまでひっくり返せるかを調べる
             // (自分と同じ色の石が現れるまでの距離)
             unsigned char toggleDist = 0;
-            for (int i = 1; i < searchLength; i++) {
+            for (int i = 1; i < searchLength - 1; i++) {
+                toggleDist++;
+
                 if (cellbuf[i] == value) {
                     break;
                 }
-                toggleDist = i;
             }
 
             // お前一個もひっくり返せないんかーい
