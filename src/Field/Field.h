@@ -101,4 +101,12 @@ int putStoneAt(Field *f, Point p, unsigned char value);
  */
 int hasPlacablePoint(Field *f, unsigned char value);
 
+/**
+ * @brief AIが石を置く位置を決める
+ * 
+ * @param f 対象のフィールド
+ * @param p 置く場所
+ */
+void decideStonePosition(Field *f, Point *p);
+
 #endif
