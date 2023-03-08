@@ -1,22 +1,23 @@
-# SimpleReversi
+# simple_reversi
 
 ## Overview
 
-Cでかるーく実装したリバーシ
-
-## Installation
-
-```
-make build
-```
+Simple reversi (a.k.a. othello) written in C
 
 ## Usage
 
+### Installation
+
+It can be easily built using CMake.
+
 ```
-make run
+mkdir build
+cd build
+cmake ..
+cmake --build .
+./cli/main # to start the game
 ```
 
 ## License
 
-This repositpry is published under MIT License.  
-In details, see [LICENSE](LICENSE).
+This repositpry is published under [MIT License](LICENSE).
