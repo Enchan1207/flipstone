@@ -1,27 +1,22 @@
 #
-# Cmake
+# simple_reversi
 #
+cmake_minimum_required(VERSION 3.0)
 
-## 環境設定
+#
+# project configuration
+#
+project(simple_reversi
+    VERSION 1.0.0
+    DESCRIPTION "parse and evaluate formula"
+    LANGUAGES C CXX
+)
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
 
-# バージョン
-cmake_minimum_required(VERSION 3.21)
-
-# プロジェクト名, 言語
-project(linear_search C)
-
-# インクルードディレクトリ
-include_directories(/usr/local/include)
-
-# リンクディレクトリ
-link_directories(/usr/local/lib)
-
-# サブディレクトリを追加
-add_subdirectory(src/Field)
-add_subdirectory(src/Point)
-
-# ターゲット生成
-add_executable(main.out src/main.c)
-
-# ターゲットにライブラリをリンク
-target_link_libraries(main.out field point urandom)
+#
+# subdirectories
+#
+add_subdirectory(src)
+add_subdirectory(cli)

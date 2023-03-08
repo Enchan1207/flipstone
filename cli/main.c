@@ -1,12 +1,11 @@
 //
-// 二次元配列を直線探索したい
+// simple_reversi
 //
-#include <liburandom.h>
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "Field.h"
-#include "Point.h"
+#include "field.h"
+#include "point.h"
 
 void dumpField(Field *f, unsigned char targetStone);
 void inputPointToPlace(Field *f, Point *p, unsigned char targetStone);
@@ -84,7 +83,7 @@ int main(int argc, char const *argv[]) {
 
 /**
  * @brief フィールドの状態をコンソールにダンプする
- * 
+ *
  * @param f ダンプ対象のフィールド
  * @param targetStone この引数に指定した石を置ける場所をハイライトする REVERSI_NONE を渡すとハイライトしない
  */
@@ -126,7 +125,7 @@ void dumpField(Field *f, unsigned char targetStone) {
 
 /**
  * @brief フィールドに石を置く場所をコンソールから入力する
- * 
+ *
  * @param f 配置対象のフィールド
  * @param p 置く場所
  * @param targetStone 置きたい石

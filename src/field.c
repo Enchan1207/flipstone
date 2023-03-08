@@ -2,7 +2,7 @@
 // フィールド
 //
 
-#include "Field.h"
+#include "field.h"
 
 void initField(Field* f) {
     f->width = 8;
