@@ -2,7 +2,7 @@
 // リバーシAI
 //
 
-#include "field.h"
+#include "field.hpp"
 
 unsigned int searchPlacablePosition(Field* f, unsigned char value, Point* buf, unsigned int bufferLength);
 

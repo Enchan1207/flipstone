@@ -4,8 +4,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "field.h"
-#include "point.h"
+#include "field.hpp"
+#include "point.hpp"
 
 void dumpField(Field *f, unsigned char targetStone);
 void inputPointToPlace(Field *f, Point *p, unsigned char targetStone);
@@ -16,8 +16,11 @@ int main(int argc, char const *argv[]) {
     F = &field;
     initField(F);
 
-    // それぞれのプレイヤーが置く石を決める
+    // 各プレイヤーを定義
+    const char *playerName = "Player";
     const unsigned char playerStone = REVERSI_BLACK;
+
+    const char *cpuName = "Player";
     const unsigned char cpuStone = REVERSI_WHITE;
 
     // 今どっちが置いているか
@@ -27,7 +30,7 @@ int main(int argc, char const *argv[]) {
     int isSkippedAtPreviousTurn = 0;  // ひとつ前のループでターンスキップしたか
     while (1) {
         unsigned char currentStone = isPlayerTurn ? playerStone : cpuStone;
-        char *currentPlayerStrRepr = isPlayerTurn ? "Player" : "CPU";
+        const char *currentPlayerStrRepr = isPlayerTurn ? playerName : cpuName;
 
         // フィールドをダンプ
         printf("%s turn!\n", currentPlayerStrRepr);
@@ -74,7 +77,7 @@ int main(int argc, char const *argv[]) {
     unsigned int cpuCount = getStoneCount(F, cpuStone);
     printf("Player: %d CPU: %d\n", playerCount, cpuCount);
 
-    char *winner = playerCount > cpuCount ? "Player" : "CPU";
+    const char *winner = playerCount > cpuCount ? playerName : cpuName;
     printf("%s win!\n", winner);
 
     deinitField(F);
@@ -102,7 +105,9 @@ void dumpField(Field *f, unsigned char targetStone) {
             }
 
             if (*cell != REVERSI_NONE) {
-                char *cellStrRepr = *cell == REVERSI_BLACK ? "○" : "●";
+                const char *black_stone = "○";
+                const char *white_stone = "●";
+                const char *cellStrRepr = *cell == REVERSI_BLACK ? black_stone : white_stone;
                 printf("%s", cellStrRepr);
             } else {
                 // 指示があれば置ける石の数を表示

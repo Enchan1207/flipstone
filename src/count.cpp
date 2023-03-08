@@ -2,7 +2,7 @@
 // 石の数を数える
 //
 
-#include "field.h"
+#include "field.hpp"
 
 unsigned int getStoneCount(Field* f, unsigned char value) {
     unsigned int summary = 0;

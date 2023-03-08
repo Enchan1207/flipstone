@@ -2,7 +2,7 @@
 // リバーシのメインロジック
 //
 
-#include "field.h"
+#include "field.hpp"
 
 int getTogglableCount(Field* f, Point p, unsigned char value) {
     unsigned char* cell = getDataAt(f, p);

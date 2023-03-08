@@ -6,7 +6,7 @@ cmake_minimum_required(VERSION 3.0)
 ## usageを含めたサンプル
 add_executable(main)
 target_sources(main PRIVATE
-    main.c
+    main.cpp
 )
 target_include_directories(main PRIVATE
     ${PROJECT_SOURCE_DIR}/include

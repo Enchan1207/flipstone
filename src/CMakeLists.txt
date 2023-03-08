@@ -5,12 +5,12 @@ cmake_minimum_required(VERSION 3.0)
 
 add_library(simple_reversi)
 target_sources(simple_reversi PRIVATE
-    access.c
-    ai.c
-    count.c
-    field.c
-    logic.c
-    search.c
+    access.cpp
+    ai.cpp
+    count.cpp
+    field.cpp
+    logic.cpp
+    search.cpp
 )
 target_include_directories(simple_reversi PUBLIC
     ${PROJECT_SOURCE_DIR}/include

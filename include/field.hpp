@@ -8,7 +8,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "point.h"
+#include "point.hpp"
 
 #define REVERSI_NONE 0x00
 #define REVERSI_BLACK 0x01
