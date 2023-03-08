@@ -2,7 +2,7 @@
 // フィールドを探索
 //
 
-#include "Field.h"
+#include "field.h"
 
 int search(Field* f, Point p, char vx, char vy, unsigned char* buf) {
     Point current = p;  // 現在読んでいる場所

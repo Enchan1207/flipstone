@@ -2,7 +2,7 @@
 // リバーシAI
 //
 
-#include "Field.h"
+#include "field.h"
 
 unsigned int searchPlacablePosition(Field* f, unsigned char value, Point* buf, unsigned int bufferLength);
 
@@ -60,7 +60,7 @@ void decideStonePosition(Field* f, Point* p, unsigned char value) {
 
 /**
  * @brief 現時点で石を置けるすべての場所をサーチ
- * 
+ *
  * @param f 対象のフィールド
  * @param value 置きたい石
  * @param buf 座標バッファ

@@ -2,7 +2,7 @@
 // フィールド上の値にアクセス
 //
 
-#include "Field.h"
+#include "field.h"
 
 unsigned char* getDataAt(Field* f, Point p) {
     // 範囲外ならNULLを返す
