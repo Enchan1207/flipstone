@@ -7,11 +7,14 @@
 
 #include <cstdint>
 
+namespace simple_reversi {
+
 /// @brief 方向ベクトルを扱う構造体
 struct Direction {
    private:
     /// @brief 方向成分を管理するメモリ
     /// @note 成分は __DxSx__DySy の形式で格納されます。
+    ///       'D' ビットはベクトルの大きさを、'S' ビットはベクトルの方向を格納します。
     uint8_t vector = 0x00;
 
    public:
@@ -32,9 +35,9 @@ struct Direction {
 
         // 値を設定していく
         uint8_t v = 0x00;
-        v |= (vecX < 0) << 5;
+        v |= (vecX > 0) << 5;
         v |= (vecX != 0) << 4;
-        v |= (vecY < 0) << 1;
+        v |= (vecY > 0) << 1;
         v |= (vecY != 0) << 0;
         vector = v;
     }
@@ -46,12 +49,12 @@ struct Direction {
      */
     int8_t vx() const {
         // ビット列をばらして大きさと方向の成分を抽出
-        bool hasXMagnitude = vector & (1 << 4);
-        bool isXNegative = vector & (1 << 5);
-        if (!hasXMagnitude) {
+        bool hasMagnitude = vector & (1 << 4);
+        bool isPositive = vector & (1 << 5);
+        if (!hasMagnitude) {
             return 0;
         }
-        return isXNegative ? -1 : 1;
+        return isPositive ? 1 : -1;
     }
 
     /**
@@ -61,13 +64,15 @@ struct Direction {
      */
     int8_t vy() const {
         // ビット列をばらして大きさと方向の成分を抽出
-        bool hasYMagnitude = vector & (1 << 0);
-        bool isYNegative = vector & (1 << 1);
-        if (!hasYMagnitude) {
+        bool hasMagnitude = vector & (1 << 0);
+        bool isPositive = vector & (1 << 1);
+        if (!hasMagnitude) {
             return 0;
         }
-        return isYNegative ? -1 : 1;
+        return isPositive ? 1 : -1;
     }
 };
+
+}  // namespace simple_reversi
 
 #endif

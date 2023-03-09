@@ -5,6 +5,8 @@
 
 #include "direction.hpp"
 
+using namespace simple_reversi;
+
 TEST(DirectionTest, testInstantiate) {
     Direction dir(0, 0);
     EXPECT_EQ(dir.vx(), 0);

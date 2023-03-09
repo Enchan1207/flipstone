@@ -1,114 +1,77 @@
-//
-// フィールド
-//
+/// @file
+/// @brief フィールド
+///
 
 #ifndef SIMPLE_REVERSI_FIELD_H
 #define SIMPLE_REVERSI_FIELD_H
 
-#include <stdio.h>
-#include <stdlib.h>
+#include <cstddef>
+#include <cstdint>
 
+#include "cell.hpp"
 #include "direction.hpp"
+#include "fieldslice.hpp"
 #include "point.hpp"
 
-#define REVERSI_NONE 0x00
-#define REVERSI_BLACK 0x01
-#define REVERSI_WHITE 0x02
+namespace simple_reversi {
 
-#define REVERSI_OK 0x00
-#define REVERSI_UNPLACABLE -1
+/// @brief フィールド
+class Field {
+   private:
+    /// @brief 内部データ管理領域
+    Cell internalFieldData[64] = {Cell::Empty};
 
-/**
- * @brief フィールド
- */
-typedef struct {
-    unsigned char width;
-    unsigned char height;
-    unsigned char size;
+   public:
+    /**
+     * @brief フィールドをゲーム開始可能な状態に初期化する
+     *
+     * @note フィールド上に置かれているすべての石が削除されます。
+     */
+    void initField();
 
-    unsigned char *field;
-} Field;
+    /**
+     * @brief 座標からセルへのポインタを取得
+     *
+     * @param point 座標
+     * @return Cell* セルへのポインタ
+     * @note 範囲外の座標に対してはnullptrが返ります。
+     */
+    Cell* referCell(const Point& point);
 
-/**
- * @brief フィールド初期化
- *
- * @param f 初期化対象のフィールド
- */
-void initField(Field *f);
+    /**
+     * @brief セルへのポインタから座標を取得
+     *
+     * @param cell セル
+     * @param point 座標
+     * @return bool ポインタがフィールドの範囲外を指している場合はfalseが返ります。
+     *
+     * @note ポインタに不正な値が渡された場合、pointの値は更新されません。
+     */
+    bool referPoint(const Cell* cell, Point& point) const;
 
-/**
- * @brief フィールドメモリの開放
- *
- * @param f 開放対象のフィールド
- */
-void deinitField(Field *);
+    /**
+     * @brief 指定された状態が占めるフィールド上のマスの合計数を求める
+     *
+     * @param state 対象の状態
+     * @return uint8_t 合計
+     *
+     * @note どちらの石がより多く置かれているか計算するために使うことを想定しています。
+     */
+    uint8_t totalizeCell(const Cell state) const;
 
-/**
- * @brief 指定位置の値を取得
- *
- * @param f 探索対象のフィールド
- * @param p 探索対象の点
- * @return unsigned char* フィールド上の探索位置にあたるポインタ 範囲外ならNULL
- */
-unsigned char *getDataAt(Field *, Point p);
+    /**
+     * @brief 開始点と方向を指定してフィールド内の石の状態をサンプリングする
+     *
+     * @param point 開始点
+     * @param direction 方向
+     * @param slice 結果格納先
+     * @return int8_t 探索できた長さ
+     *
+     * @note フィールド端に到達するまで探索は続きます(探索結果の最大長は8となります)。
+     */
+    int8_t sample(const Point& point, const Direction& direction, FieldSlice& slice);
+};
 
-/**
- * @brief 指定位置の値を設定
- *
- * @param f 探索対象のフィールド
- * @param p 探索対象の点
- * @param value 設定したい値
- */
-void setDataAt(Field *f, Point p, unsigned char value);
-
-/**
- * @brief 位置と方向を指定して、REVERSI_NONEか端に当たるまでフィールド内を探索
- *
- * @param f 探索対象のフィールド
- * @param p 探索開始点
- * @param vx 探索方向x
- * @param vy 探索方向y
- * @param buf 結果格納バッファ
- * @return int 探索できた長さ
- */
-int search(Field *f, Point p, char vx, char vy, unsigned char *buf);
-
-/**
- * @brief 指定位置に指定種別の石を置いた時にひっくり返せる石の合計数を返す
- *
- * @param f 探索対象のフィールド
- * @param p 石を置く場所
- * @param value 置きたい石の種類(REVERSI_*)
- * @return int ひっくり返せる石の数 / REVERSI_UNPLACABLE
- */
-int getTogglableCount(Field *f, Point p, unsigned char value);
-
-/**
- * @brief 指定位置に石を置く
- *
- * @param f 対象のフィールド
- * @param p 石を置く場所
- * @param value 置きたい石の種類
- * @return int ひっくり返した石の数 / REVERSI_UNPLACABLE
- */
-int putStoneAt(Field *f, Point p, unsigned char value);
-
-/**
- * @brief 石を置ける場所があるか
- *
- * @param f 対象のフィールド
- * @param value 置きたい石
- * @return int 置ける石の数 / REVERSI_UNPLACABLE
- */
-int hasPlacablePoint(Field *f, unsigned char value);
-
-/**
- * @brief 石の数を数える
- *
- * @param f 対象のフィールド
- * @param value 数えたい石
- * @return unsigned int フィールド上にある石の数
- */
-unsigned int getStoneCount(Field *f, unsigned char value);
+}  // namespace simple_reversi
 
 #endif
