@@ -5,7 +5,7 @@
 
 #include "reversi.hpp"
 
-using namespace simple_reversi;
+using namespace flipstone;
 
 TEST(ReversiTest, testFlipcountCalc) {
     Reversi reversi;

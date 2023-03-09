@@ -9,7 +9,7 @@
 #include "field.hpp"
 #include "fieldslice.hpp"
 
-using namespace simple_reversi;
+using namespace flipstone;
 
 TEST(FieldTest, testReferenceCell) {
     Field field;

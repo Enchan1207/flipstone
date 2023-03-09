@@ -6,7 +6,7 @@
 
 using namespace collection2;
 
-namespace simple_reversi {
+namespace flipstone {
 
 void Reversi::initField() {
     // 石をひっぺがす
@@ -126,4 +126,4 @@ Cell Reversi::flipStone(const Point& point) {
     return opposite;
 }
 
-}  // namespace simple_reversi
+}  // namespace flipstone

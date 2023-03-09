@@ -4,7 +4,7 @@
 
 #include "field.hpp"
 
-namespace simple_reversi {
+namespace flipstone {
 
 Cell* Field::referCell(const Point& point) {
     if (point.x < 0 || point.x > 8 || point.y < 0 || point.y > 8) {
@@ -59,4 +59,4 @@ int8_t Field::sample(const Point& point, const Direction& direction, FieldSlice&
     return sampleIndex;
 }
 
-}  // namespace simple_reversi
+}  // namespace flipstone

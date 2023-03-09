@@ -2,14 +2,14 @@
 /// @brief リバーシ
 ///
 
-#ifndef SIMPLE_REVERSI_REVERSI_H
-#define SIMPLE_REVERSI_REVERSI_H
+#ifndef FLIPSTONE_REVERSI_H
+#define FLIPSTONE_REVERSI_H
 
 #include <collection2/list.hpp>
 
 #include "field.hpp"
 
-namespace simple_reversi {
+namespace flipstone {
 
 /// @brief リバーシ
 class Reversi {
@@ -90,6 +90,6 @@ class Reversi {
     void putStone(const Point& point, const Cell& cell);
 };
 
-}  // namespace simple_reversi
+}  // namespace flipstone
 
-#endif /* SIMPLE_REVERSI_REVERSI_H */
+#endif /* FLIPSTONE_REVERSI_H */

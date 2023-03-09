@@ -1,5 +1,5 @@
 #
-# simple_reversi tests
+# flipstone tests
 #
 cmake_minimum_required(VERSION 3.0)
 
@@ -16,23 +16,23 @@ include(GoogleTest)
 ## 外部依存関係を追加...
 
 # テストターゲットの構成
-add_executable(simple_reversi_test)
-target_sources(simple_reversi_test PRIVATE
+add_executable(flipstone_test)
+target_sources(flipstone_test PRIVATE
     test_direction.cpp
     test_field.cpp
     test_point.cpp
     test_reversi.cpp
 )
-target_link_libraries(simple_reversi_test PRIVATE
+target_link_libraries(flipstone_test PRIVATE
     GTest::gtest_main
     collection2
     reversi
 )
-target_include_directories(simple_reversi_test
+target_include_directories(flipstone_test
     PRIVATE
     ${PROJECT_SOURCE_DIR}/include
     ${GTEST_INCLUDE_DIRS}
 )
 
 # テストの実行
-gtest_discover_tests(simple_reversi_test)
+gtest_discover_tests(flipstone_test)

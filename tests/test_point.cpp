@@ -8,7 +8,7 @@
 #include "direction.hpp"
 #include "point.hpp"
 
-using namespace simple_reversi;
+using namespace flipstone;
 
 TEST(PointTest, testAdvanceValidRange) {
     Point point(3, 3);

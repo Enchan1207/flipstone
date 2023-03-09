@@ -2,12 +2,12 @@
 /// @brief フィールド上のマス
 ///
 
-#ifndef SIMPLE_REVERSI_CELL_H
-#define SIMPLE_REVERSI_CELL_H
+#ifndef FLIPSTONE_CELL_H
+#define FLIPSTONE_CELL_H
 
 #include <cstdint>
 
-namespace simple_reversi {
+namespace flipstone {
 
 /// @brief フィールド上の一つのマス
 enum class Cell : uint8_t {
@@ -21,6 +21,6 @@ enum class Cell : uint8_t {
     White
 };
 
-}  // namespace simple_reversi
+}  // namespace flipstone
 
 #endif

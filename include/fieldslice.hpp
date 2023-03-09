@@ -2,14 +2,14 @@
 /// @brief フィールドから抽出したセル
 ///
 
-#ifndef SIMPLE_REVERSI_FIELD_SLICE_H
-#define SIMPLE_REVERSI_FIELD_SLICE_H
+#ifndef FLIPSTONE_FIELD_SLICE_H
+#define FLIPSTONE_FIELD_SLICE_H
 
 #include "cell.hpp"
 #include "direction.hpp"
 #include "point.hpp"
 
-namespace simple_reversi {
+namespace flipstone {
 
 /// @brief フィールドから抽出したセル
 struct FieldSlice {
@@ -23,6 +23,6 @@ struct FieldSlice {
     Cell sample[9] = {Cell::Empty};
 };
 
-}  // namespace simple_reversi
+}  // namespace flipstone
 
 #endif

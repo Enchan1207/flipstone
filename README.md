@@ -1,22 +1,13 @@
-# simple_reversi
+# flipstone
 
 ## Overview
 
-Simple reversi (a.k.a. othello) written in C
+Reversi core library written in C++
 
-## Usage
+## Note
 
-### Installation
-
-It can be easily built using CMake.
-
-```
-mkdir build
-cd build
-cmake ..
-cmake --build .
-./cli/main # to start the game
-```
+This repository contains only *core library*.  
+If you want to play reversi, please implement the user interface and embed in it.
 
 ## License
 
