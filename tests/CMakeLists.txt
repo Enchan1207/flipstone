@@ -22,6 +22,7 @@ target_sources(simple_reversi_test PRIVATE
 )
 target_link_libraries(simple_reversi_test PRIVATE
     GTest::gtest_main
+    reversi
 )
 target_include_directories(simple_reversi_test
     PRIVATE

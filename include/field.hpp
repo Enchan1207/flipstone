@@ -8,6 +8,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "direction.hpp"
 #include "point.hpp"
 
 #define REVERSI_NONE 0x00
@@ -100,15 +101,6 @@ int putStoneAt(Field *f, Point p, unsigned char value);
  * @return int 置ける石の数 / REVERSI_UNPLACABLE
  */
 int hasPlacablePoint(Field *f, unsigned char value);
-
-/**
- * @brief AIが石を置く位置を決める
- *
- * @param f 対象のフィールド
- * @param p 置く場所
- * @param value 置きたい石
- */
-void decideStonePosition(Field *f, Point *p, unsigned char value);
 
 /**
  * @brief 石の数を数える

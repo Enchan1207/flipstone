@@ -3,18 +3,17 @@
 #
 cmake_minimum_required(VERSION 3.0)
 
-add_library(simple_reversi)
-target_sources(simple_reversi PRIVATE
+add_library(reversi)
+target_sources(reversi PRIVATE
     access.cpp
-    ai.cpp
     count.cpp
     field.cpp
     logic.cpp
     search.cpp
 )
-target_include_directories(simple_reversi PUBLIC
+target_include_directories(reversi PUBLIC
     ${PROJECT_SOURCE_DIR}/include
 )
-target_compile_options(simple_reversi PRIVATE
+target_compile_options(reversi PRIVATE
     -Wall
 )
