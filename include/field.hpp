@@ -23,13 +23,6 @@ class Field {
 
    public:
     /**
-     * @brief フィールドをゲーム開始可能な状態に初期化する
-     *
-     * @note フィールド上に置かれているすべての石が削除されます。
-     */
-    void initField();
-
-    /**
      * @brief 座標からセルへのポインタを取得
      *
      * @param point 座標

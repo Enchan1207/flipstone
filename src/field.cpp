@@ -6,14 +6,12 @@
 
 namespace simple_reversi {
 
-void Field::initField() {
-    for (size_t i = 0; i < 64; i++) {
-        internalFieldData[i] = Cell::Empty;
-    }
-}
-
 Cell* Field::referCell(const Point& point) {
-    auto candidate = point.y * 8 + point.x;
+    if (point.x < 0 || point.x > 8 || point.y < 0 || point.y > 8) {
+        return nullptr;
+    }
+
+    const auto candidate = point.y * 8 + point.x;
     if (candidate < 0 || candidate > 63) {
         return nullptr;
     }

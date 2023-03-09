@@ -19,11 +19,13 @@ include(GoogleTest)
 add_executable(simple_reversi_test)
 target_sources(simple_reversi_test PRIVATE
     test_direction.cpp
-    test_point.cpp
     test_field.cpp
+    test_point.cpp
+    test_reversi.cpp
 )
 target_link_libraries(simple_reversi_test PRIVATE
     GTest::gtest_main
+    collection2
     reversi
 )
 target_include_directories(simple_reversi_test

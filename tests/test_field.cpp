@@ -13,7 +13,6 @@ using namespace simple_reversi;
 
 TEST(FieldTest, testReferenceCell) {
     Field field;
-    field.initField();
 
     Point insideField1(0, 0);
     EXPECT_NE(field.referCell(insideField1), nullptr);
@@ -30,7 +29,6 @@ TEST(FieldTest, testReferenceCell) {
 
 TEST(FieldTest, testReferencePoint) {
     Field field;
-    field.initField();
 
     const Point point(2, 2);
     const Cell* cellPtr = field.referCell(point);
@@ -47,7 +45,6 @@ TEST(FieldTest, testReferencePoint) {
 
 TEST(FieldTest, testReferenceConversion) {
     Field field;
-    field.initField();
 
     for (int8_t y = 0; y < 8; y++) {
         for (int8_t x = 0; x < 8; x++) {
@@ -65,7 +62,6 @@ TEST(FieldTest, testReferenceConversion) {
 TEST(FieldTest, testTotalize) {
     // それっぽいフィールドを作る
     Field field;
-    field.initField();
     for (int8_t y = 0; y < 8; y++) {
         for (int8_t x = 0; x < 8; x++) {
             auto* cellPtr = field.referCell(Point(x, y));
@@ -83,7 +79,6 @@ TEST(FieldTest, testTotalize) {
 TEST(FieldTest, testSample) {
     // それっぽいフィールドを作る
     Field field;
-    field.initField();
     for (int8_t y = 0; y < 8; y++) {
         for (int8_t x = 0; x < 8; x++) {
             auto* cellPtr = field.referCell(Point(x, y));

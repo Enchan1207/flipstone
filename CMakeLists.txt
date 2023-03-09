@@ -30,6 +30,17 @@ if(${SIMPLE_REVERSI_HEADLESS})
 endif()
 
 #
+# global dependencies
+#
+include(FetchContent)
+FetchContent_Declare(
+    collection2
+    GIT_REPOSITORY https://github.com/Enchan1207/collection2
+    GIT_TAG v0.3.0
+)
+FetchContent_MakeAvailable(collection2)
+
+#
 # unit testing configuration
 #
 option(SIMPLE_REVERSI_BUILD_TESTS "Enable testing of collection2" OFF)
