@@ -1,5 +1,5 @@
 #
-# simple_reversi sources
+# flipstone sources
 #
 cmake_minimum_required(VERSION 3.0)
 

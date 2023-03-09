@@ -5,7 +5,7 @@
 
 #include "direction.hpp"
 
-using namespace simple_reversi;
+using namespace flipstone;
 
 TEST(DirectionTest, testInstantiate) {
     Direction dir(0, 0);

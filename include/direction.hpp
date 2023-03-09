@@ -2,12 +2,12 @@
 /// @brief 方向ベクトル
 ///
 
-#ifndef SIMPLE_REVERSI_DIRECTION_H
-#define SIMPLE_REVERSI_DIRECTION_H
+#ifndef FLIPSTONE_DIRECTION_H
+#define FLIPSTONE_DIRECTION_H
 
 #include <cstdint>
 
-namespace simple_reversi {
+namespace flipstone {
 
 /// @brief 方向ベクトルを扱う構造体
 struct Direction {
@@ -73,6 +73,6 @@ struct Direction {
     }
 };
 
-}  // namespace simple_reversi
+}  // namespace flipstone
 
 #endif

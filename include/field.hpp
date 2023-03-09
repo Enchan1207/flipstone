@@ -2,8 +2,8 @@
 /// @brief フィールド
 ///
 
-#ifndef SIMPLE_REVERSI_FIELD_H
-#define SIMPLE_REVERSI_FIELD_H
+#ifndef FLIPSTONE_FIELD_H
+#define FLIPSTONE_FIELD_H
 
 #include <cstddef>
 #include <cstdint>
@@ -13,7 +13,7 @@
 #include "fieldslice.hpp"
 #include "point.hpp"
 
-namespace simple_reversi {
+namespace flipstone {
 
 /// @brief フィールド
 class Field {
@@ -65,6 +65,6 @@ class Field {
     int8_t sample(const Point& point, const Direction& direction, FieldSlice& slice);
 };
 
-}  // namespace simple_reversi
+}  // namespace flipstone
 
 #endif

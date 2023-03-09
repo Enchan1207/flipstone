@@ -2,15 +2,15 @@
 /// @brief フィールド上の点
 ///
 
-#ifndef SIMPLE_REVERSI_POINT_H
-#define SIMPLE_REVERSI_POINT_H
+#ifndef FLIPSTONE_POINT_H
+#define FLIPSTONE_POINT_H
 
 #include <climits>
 #include <cstdint>
 
 #include "direction.hpp"
 
-namespace simple_reversi {
+namespace flipstone {
 
 /// @brief フィールド上の点を表す構造体
 struct Point {
@@ -58,6 +58,6 @@ struct Point {
     }
 };
 
-}  // namespace simple_reversi
+}  // namespace flipstone
 
 #endif
