@@ -30,15 +30,15 @@ struct Direction {
      */
     Direction(const int8_t vx, const int8_t vy) {
         // 方向を正規化
-        const int8_t vecX = (vx > 0) - (vx < 0);
-        const int8_t vecY = (vy > 0) - (vy < 0);
+        const int8_t vecX = static_cast<int8_t>(vx > 0) - static_cast<int8_t>(vx < 0);
+        const int8_t vecY = static_cast<int8_t>(vy > 0) - static_cast<int8_t>(vy < 0);
 
         // 値を設定していく
         uint8_t v = 0x00;
-        v |= (vecX > 0) << 5;
-        v |= (vecX != 0) << 4;
-        v |= (vecY > 0) << 1;
-        v |= (vecY != 0) << 0;
+        v |= static_cast<uint8_t>(vecX > 0) << 5;
+        v |= static_cast<uint8_t>(vecX != 0) << 4;
+        v |= static_cast<uint8_t>(vecY > 0) << 1;
+        v |= static_cast<uint8_t>(vecY != 0) << 0;
         vector = v;
     }
 

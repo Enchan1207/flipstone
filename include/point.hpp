@@ -5,7 +5,10 @@
 #ifndef SIMPLE_REVERSI_POINT_H
 #define SIMPLE_REVERSI_POINT_H
 
+#include <climits>
 #include <cstdint>
+
+#include "direction.hpp"
 
 namespace simple_reversi {
 
@@ -28,10 +31,30 @@ struct Point {
      * @brief 指定方向に座標を進める
      *
      * @param direction 方向
+     * @return bool オーバーフローの可能性がある場合はfalseが返ります。またその際値は変化しません。
      */
-    void advance(const Direction& direction) {
-        x += direction.vx();
-        y += direction.vy();
+    bool advance(const Direction& direction) {
+        // 各軸オーバーフロー対策
+        bool isXWillInRangeAfterAdvance = (direction.vx() > 0 && x < CHAR_MAX) || (direction.vx() < 0 && x > CHAR_MIN);
+        bool isYWillInRangeAfterAdvance = (direction.vy() > 0 && y < CHAR_MAX) || (direction.vy() < 0 && y > CHAR_MIN);
+
+        // オーバーフローしない場合のみ進める
+        if (isXWillInRangeAfterAdvance) {
+            x += direction.vx();
+        }
+        if (isYWillInRangeAfterAdvance) {
+            y += direction.vy();
+        }
+
+        return isXWillInRangeAfterAdvance && isYWillInRangeAfterAdvance;
+    }
+
+    bool operator==(Point point) const {
+        return this->x == point.x && this->y == point.y;
+    }
+
+    bool operator!=(Point point) const {
+        return !(this->operator==(point));
     }
 };
 

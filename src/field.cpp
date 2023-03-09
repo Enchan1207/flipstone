@@ -26,13 +26,13 @@ bool Field::referPoint(const Cell* cell, Point& point) const {
         return false;
     }
     point.x = diff % 8;
-    point.y = diff / 8;
+    point.y = static_cast<int8_t>(diff / 8);
     return true;
 }
 
 uint8_t Field::totalizeCell(const Cell state) const {
-    auto sum = 0;
-    for (size_t i = 0; i < 64; i++) {
+    uint8_t sum = 0;
+    for (uint8_t i = 0; i < 64; i++) {
         if (internalFieldData[i] != state) {
             continue;
         }
@@ -50,12 +50,13 @@ int8_t Field::sample(const Point& point, const Direction& direction, FieldSlice&
     Point current = point;
     int8_t sampleIndex = 0;
     while (true) {
-        Cell* cell = referCell(current);
+        const Cell* cell = referCell(current);
         if (cell == nullptr) {
             break;
         }
         slice.sample[sampleIndex] = *cell;
         current.advance(direction);
+        sampleIndex++;
     }
     return sampleIndex;
 }

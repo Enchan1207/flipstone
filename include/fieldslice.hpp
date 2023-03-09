@@ -14,15 +14,13 @@ namespace simple_reversi {
 /// @brief フィールドから抽出したセル
 struct FieldSlice {
     /// @brief 開始点
-    Point startPoint;
+    Point startPoint = Point(-1, -1);
 
     /// @brief 方向
-    Direction direction;
+    Direction direction = Direction(0, 0);
 
     /// @brief セル
     Cell sample[9] = {Cell::Empty};
-
-    FieldSlice() : startPoint(-1, -1), direction(0, 0){};
 };
 
 }  // namespace simple_reversi
