@@ -2,8 +2,8 @@
 // フィールド
 //
 
-#ifndef _FIELD_H_
-#define _FIELD_H_
+#ifndef SIMPLE_REVERSI_FIELD_H
+#define SIMPLE_REVERSI_FIELD_H
 
 #include <stdio.h>
 #include <stdlib.h>
