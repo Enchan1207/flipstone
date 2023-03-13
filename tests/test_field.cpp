@@ -20,11 +20,17 @@ TEST(FieldTest, testReferenceCell) {
     Point insideField2(7, 7);
     EXPECT_NE(field.referCell(insideField2), nullptr);
 
-    Point outsideField1(-1, -1);
+    Point outsideField1(0, -1);
     EXPECT_EQ(field.referCell(outsideField1), nullptr);
 
-    Point outsideField2(8, 8);
+    Point outsideField2(-1, 0);
     EXPECT_EQ(field.referCell(outsideField2), nullptr);
+
+    Point outsideField3(8, 0);
+    EXPECT_EQ(field.referCell(outsideField3), nullptr);
+
+    Point outsideField4(0, 8);
+    EXPECT_EQ(field.referCell(outsideField4), nullptr);
 }
 
 TEST(FieldTest, testReferencePoint) {

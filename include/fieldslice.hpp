@@ -21,6 +21,12 @@ struct FieldSlice final {
 
     /// @brief セル
     Cell sample[9] = {Cell::Empty};
+
+    FieldSlice() {
+        for (size_t i = 0; i < 9; i++) {
+            sample[i] = Cell::Empty;
+        }
+    }
 };
 
 }  // namespace flipstone

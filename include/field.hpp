@@ -21,6 +21,15 @@ class Field final {
     /// @brief 内部データ管理領域
     Cell internalFieldData[64] = {Cell::Empty};
 
+    /**
+     * @brief 座標から内部データ管理領域のインデックスを取得
+     *
+     * @param point 座標
+     * @param index インデックス
+     * @return bool 範囲外の座標が渡された場合はfalseが返ります。
+     */
+    bool convertPointToInternalDataIndex(const Point& point, uint8_t& index) const;
+
    public:
     /**
      * @brief 座標からセルへのポインタを取得
