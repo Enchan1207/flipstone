@@ -5,7 +5,7 @@
 #ifndef FLIPSTONE_DIRECTION_H
 #define FLIPSTONE_DIRECTION_H
 
-#include <cstdint>
+#include <stdint.h>
 
 namespace flipstone {
 

@@ -5,7 +5,7 @@
 #ifndef FLIPSTONE_CELL_H
 #define FLIPSTONE_CELL_H
 
-#include <cstdint>
+#include <stdint.h>
 
 namespace flipstone {
 

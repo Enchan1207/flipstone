@@ -5,8 +5,8 @@
 #ifndef FLIPSTONE_POINT_H
 #define FLIPSTONE_POINT_H
 
-#include <climits>
-#include <cstdint>
+#include <limits.h>
+#include <stdint.h>
 
 #include "direction.hpp"
 

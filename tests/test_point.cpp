@@ -3,7 +3,7 @@
 //
 #include <gtest/gtest.h>
 
-#include <climits>
+#include <limits.h>
 
 #include "direction.hpp"
 #include "point.hpp"
