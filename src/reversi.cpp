@@ -138,4 +138,21 @@ Cell Reversi::flipStone(const Point& point) {
     return opposite;
 }
 
+bool Reversi::hasPlacablePoint(const Cell& cell) const {
+    for (uint8_t y = 0; y < 8; y++) {
+        for (uint8_t x = 0; x < 8; x++) {
+            const flipstone::Point point(x, y);
+            bool canPlaceOn = createFlippablePointsList(point, cell, nullptr) > 0;
+            if (canPlaceOn) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+uint8_t Reversi::totalizeCell(const Cell state) const {
+    return field.totalizeCell(state);
+}
+
 }  // namespace flipstone

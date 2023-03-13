@@ -88,6 +88,25 @@ class Reversi final {
      * @note この関数により、オセロのルールに従い盤面が更新されます。
      */
     void putStone(const Point& point, const Cell& cell);
+
+    /**
+     * @brief 特定の石を置ける場所があるか調べる
+     *
+     * @param cell 置く石の種類
+     * @return bool
+     *
+     * @note この関数はオセロのルールに従い評価を行います。フィールドに空きマスがあっても、
+     *       ルール上置ける箇所がない場合はfalseが返ります。
+     */
+    bool hasPlacablePoint(const Cell& cell) const;
+
+    /**
+     * @brief 指定された状態が占めるフィールド上のマスの合計数を求める
+     *
+     * @param state 対象の状態
+     * @return uint8_t 合計
+     */
+    uint8_t totalizeCell(const Cell state) const;
 };
 
 }  // namespace flipstone
