@@ -5,8 +5,8 @@
 #ifndef FLIPSTONE_FIELD_H
 #define FLIPSTONE_FIELD_H
 
-#include <cstddef>
-#include <cstdint>
+#include <stddef.h>
+#include <stdint.h>
 
 #include "cell.hpp"
 #include "direction.hpp"

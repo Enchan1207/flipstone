@@ -3,7 +3,7 @@
 //
 #include <gtest/gtest.h>
 
-#include <cstdint>
+#include <stdint.h>
 #include <iostream>
 
 #include "field.hpp"
