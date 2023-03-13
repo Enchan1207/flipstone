@@ -12,7 +12,7 @@
 namespace flipstone {
 
 /// @brief フィールドから抽出したセル
-struct FieldSlice {
+struct FieldSlice final {
     /// @brief 開始点
     Point startPoint = Point(-1, -1);
 

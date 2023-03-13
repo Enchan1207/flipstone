@@ -10,7 +10,7 @@
 namespace flipstone {
 
 /// @brief 方向ベクトルを扱う構造体
-struct Direction {
+struct Direction final {
    private:
     /// @brief 方向成分を管理するメモリ
     /// @note 成分は __DxSx__DySy の形式で格納されます。

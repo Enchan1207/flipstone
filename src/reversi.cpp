@@ -23,15 +23,18 @@ void Reversi::initField() {
     *field.referCell(Point(4, 4)) = Cell::Black;
 }
 
-Cell Reversi::referCell(const Point& point) {
-    const auto* cellPtr = field.referCell(point);
-    if (cellPtr == nullptr) {
-        return Cell::Empty;
-    }
-    return *cellPtr;
+Cell Reversi::referCell(const Point& point) const {
+    Cell cell;
+    field.readCell(point, cell);
+    return cell;
 }
 
-uint8_t Reversi::createFlippablePointsList(const Point& point, const Cell& cell, const Direction& direction, List<Point>* flippablePointsList) {
+uint8_t Reversi::createFlippablePointsList(
+    const Point& point,
+    const Cell& cell,
+    const Direction& direction,
+    List<Point>* flippablePointsList) const {
+    // スライスを作成し、サンプル
     FieldSlice slice;
 
     // サンプル結果が3未満 -> 端に到達するまで1マスしかない = ひっくり返せる石はない
@@ -88,7 +91,11 @@ uint8_t Reversi::createFlippablePointsList(const Point& point, const Cell& cell,
     return flippableCount;
 }
 
-uint8_t Reversi::createFlippablePointsList(const Point& point, const Cell& cell, List<Point>* flippablePointsList) {
+uint8_t Reversi::createFlippablePointsList(
+    const Point& point,
+    const Cell& cell,
+    List<Point>* flippablePointsList) const {
+    // 探索方向を定義
     Direction directions[8] = {
         Direction(1, 0), Direction(-1, 0), Direction(0, 1), Direction(0, -1),
         Direction(1, 1), Direction(-1, 1), Direction(1, -1), Direction(-1, -1)};
