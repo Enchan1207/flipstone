@@ -23,3 +23,11 @@ TEST(ReversiTest, testFlipcountCalc) {
     EXPECT_EQ(reversi.createFlippablePointsList(Point(3, 5), Cell::Black, nullptr), 1);
     EXPECT_EQ(reversi.createFlippablePointsList(Point(2, 4), Cell::White, nullptr), 0);
 }
+
+TEST(ReversiTest, testPutStone) {
+    Reversi reversi;
+    reversi.initField();
+
+    reversi.putStone(Point(2, 3), Cell::White);
+    EXPECT_EQ(reversi.referCell(Point(2, 3)), Cell::White);
+}

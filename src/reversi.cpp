@@ -102,6 +102,7 @@ uint8_t Reversi::createFlippablePointsList(const Point& point, const Cell& cell,
 }
 
 void Reversi::putStone(const Point& point, const Cell& cell) {
+    // ひっくり返せる場所のリストを取得
     const uint8_t pointsListSize = 20;
     Node<Point> flipPointsData[pointsListSize];
     List<Point> flipPointsList(flipPointsData, pointsListSize);
@@ -109,6 +110,10 @@ void Reversi::putStone(const Point& point, const Cell& cell) {
         return;
     }
 
+    // 足元に石を置き
+    *field.referCell(point) = cell;
+
+    // リストを順番に辿ってひっくり返していく
     auto* listCursor = flipPointsList.head();
     while (listCursor != nullptr) {
         flipStone(listCursor->element);
