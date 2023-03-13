@@ -13,7 +13,7 @@
 namespace simple_reversi {
 
 /// @brief フィールド上の点を表す構造体
-struct Point {
+struct Point final {
     int8_t x = 0;
     int8_t y = 0;
 

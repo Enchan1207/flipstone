@@ -12,7 +12,7 @@
 namespace simple_reversi {
 
 /// @brief リバーシ
-class Reversi {
+class Reversi final {
    private:
     /// @brief フィールド
     Field field;
@@ -44,7 +44,7 @@ class Reversi {
         const Point& point,
         const Cell& cell,
         const Direction& direction,
-        collection2::List<Point>* flippablePointsList);
+        collection2::List<Point>* flippablePointsList) const;
 
    public:
     /**
@@ -61,7 +61,7 @@ class Reversi {
      * @return Cell 状態
      * @note 範囲外の位置に対してはCell::Emptyが返ります。
      */
-    Cell referCell(const Point& point);
+    Cell referCell(const Point& point) const;
 
     /**
      * @brief ある石を置いたときに全方向についてひっくり返せる位置のリストを作成する
@@ -77,7 +77,7 @@ class Reversi {
     uint8_t createFlippablePointsList(
         const Point& point,
         const Cell& cell,
-        collection2::List<Point>* flippablePointsList);
+        collection2::List<Point>* flippablePointsList) const;
 
     /**
      * @brief 特定位置に石を置く

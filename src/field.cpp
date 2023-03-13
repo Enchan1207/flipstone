@@ -18,6 +18,19 @@ Cell* Field::referCell(const Point& point) {
     return internalFieldData + candidate;
 }
 
+bool Field::readCell(const Point& point, Cell& cell) const {
+    if (point.x < 0 || point.x > 8 || point.y < 0 || point.y > 8) {
+        return false;
+    }
+
+    const auto candidate = point.y * 8 + point.x;
+    if (candidate < 0 || candidate > 63) {
+        return false;
+    }
+    cell = internalFieldData[candidate];
+    return true;
+}
+
 bool Field::referPoint(const Cell* cell, Point& point) const {
     auto diff = cell - internalFieldData;
     if (diff < 0 || diff > 63) {
@@ -39,21 +52,18 @@ uint8_t Field::totalizeCell(const Cell state) const {
     return sum;
 }
 
-int8_t Field::sample(const Point& point, const Direction& direction, FieldSlice& slice) {
+int8_t Field::sample(const Point& point, const Direction& direction, FieldSlice& slice) const {
     // sliceに情報を設定
     slice.startPoint = point;
     slice.direction = direction;
 
-    // 端に到達するまで読む
-    Point current = point;
+    // 端または石が置かれているところまで読む
+    Point samplePoint = point;
     int8_t sampleIndex = 0;
-    while (true) {
-        const Cell* cell = referCell(current);
-        if (cell == nullptr) {
-            break;
-        }
-        slice.sample[sampleIndex] = *cell;
-        current.advance(direction);
+    Cell cell = Cell::Empty;
+    while (readCell(samplePoint, cell)) {
+        slice.sample[sampleIndex] = cell;
+        samplePoint.advance(direction);
         sampleIndex++;
     }
     return sampleIndex;

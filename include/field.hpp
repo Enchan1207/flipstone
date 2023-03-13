@@ -16,7 +16,7 @@
 namespace simple_reversi {
 
 /// @brief フィールド
-class Field {
+class Field final {
    private:
     /// @brief 内部データ管理領域
     Cell internalFieldData[64] = {Cell::Empty};
@@ -30,6 +30,15 @@ class Field {
      * @note 範囲外の座標に対してはnullptrが返ります。
      */
     Cell* referCell(const Point& point);
+
+    /**
+     * @brief 座標に対応するセルの状態を参照する
+     *
+     * @param point 座標
+     * @param cell セルの状態
+     * @return bool 座標が盤面の範囲外を指している場合はfalseが返ります。
+     */
+    bool readCell(const Point& point, Cell& cell) const;
 
     /**
      * @brief セルへのポインタから座標を取得
@@ -60,9 +69,9 @@ class Field {
      * @param slice 結果格納先
      * @return int8_t 探索できた長さ
      *
-     * @note フィールド端に到達するまで探索は続きます(探索結果の最大長は8となります)。
+     * @note フィールド端に到達、または石がなくなるまで探索は続きます(探索結果の最大長は8となります)。
      */
-    int8_t sample(const Point& point, const Direction& direction, FieldSlice& slice);
+    int8_t sample(const Point& point, const Direction& direction, FieldSlice& slice) const;
 };
 
 }  // namespace simple_reversi
