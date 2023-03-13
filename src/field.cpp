@@ -6,28 +6,32 @@
 
 namespace flipstone {
 
-Cell* Field::referCell(const Point& point) {
-    if (point.x < 0 || point.x > 8 || point.y < 0 || point.y > 8) {
-        return nullptr;
+bool Field::convertPointToInternalDataIndex(const Point& point, uint8_t& index) const {
+    if (point.x < 0 || point.x > 7 || point.y < 0 || point.y > 7) {
+        return false;
     }
-
     const auto candidate = point.y * 8 + point.x;
     if (candidate < 0 || candidate > 63) {
+        return false;
+    }
+    index = candidate;
+    return true;
+}
+
+Cell* Field::referCell(const Point& point) {
+    uint8_t index = 0;
+    if (!convertPointToInternalDataIndex(point, index)) {
         return nullptr;
     }
-    return internalFieldData + candidate;
+    return internalFieldData + index;
 }
 
 bool Field::readCell(const Point& point, Cell& cell) const {
-    if (point.x < 0 || point.x > 8 || point.y < 0 || point.y > 8) {
+    uint8_t index = 0;
+    if (!convertPointToInternalDataIndex(point, index)) {
         return false;
     }
-
-    const auto candidate = point.y * 8 + point.x;
-    if (candidate < 0 || candidate > 63) {
-        return false;
-    }
-    cell = internalFieldData[candidate];
+    cell = internalFieldData[index];
     return true;
 }
 
