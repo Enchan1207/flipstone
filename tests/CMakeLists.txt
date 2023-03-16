@@ -26,10 +26,9 @@ target_sources(flipstone_test PRIVATE
 target_link_libraries(flipstone_test PRIVATE
     GTest::gtest_main
     collection2
-    reversi
+    flipstone
 )
-target_include_directories(flipstone_test
-    PRIVATE
+target_include_directories(flipstone_test PRIVATE
     ${PROJECT_SOURCE_DIR}/include
     ${GTEST_INCLUDE_DIRS}
 )

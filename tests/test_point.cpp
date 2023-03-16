@@ -2,11 +2,10 @@
 // 座標構造体のテスト
 //
 #include <gtest/gtest.h>
-
 #include <limits.h>
 
-#include "direction.hpp"
-#include "point.hpp"
+#include "flipstone/direction.hpp"
+#include "flipstone/point.hpp"
 
 using namespace flipstone;
 

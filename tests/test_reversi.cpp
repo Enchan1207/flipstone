@@ -3,7 +3,7 @@
 //
 #include <gtest/gtest.h>
 
-#include "reversi.hpp"
+#include "flipstone/reversi.hpp"
 
 using namespace flipstone;
 
