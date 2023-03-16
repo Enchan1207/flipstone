@@ -3,7 +3,7 @@
 //
 #include <gtest/gtest.h>
 
-#include "direction.hpp"
+#include "flipstone/direction.hpp"
 
 using namespace flipstone;
 

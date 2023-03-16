@@ -2,12 +2,12 @@
 // フィールドのテスト
 //
 #include <gtest/gtest.h>
-
 #include <stdint.h>
+
 #include <iostream>
 
-#include "field.hpp"
-#include "fieldslice.hpp"
+#include "flipstone/field.hpp"
+#include "flipstone/fieldslice.hpp"
 
 using namespace flipstone;
 

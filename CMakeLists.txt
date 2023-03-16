@@ -8,7 +8,7 @@ cmake_minimum_required(VERSION 3.0)
 #
 project(flipstone
     VERSION 2.2.2
-    DESCRIPTION "Simple reversi game"
+    DESCRIPTION "Core library of revrsi game"
     LANGUAGES C CXX
 )
 set(CMAKE_CXX_STANDARD 11)
@@ -43,3 +43,17 @@ add_subdirectory(src)
 if(FLIPSTONE_BUILD_TESTS)
     add_subdirectory(tests)
 endif()
+
+
+#
+# exported library configuration
+#
+install(TARGETS flipstone
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+)
+
+install(
+    DIRECTORY ${flipstone_SOURCE_DIR}/include/flipstone
+    DESTINATION include
+)

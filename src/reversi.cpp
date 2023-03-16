@@ -2,7 +2,7 @@
 /// @brief リバーシのメインロジック
 ///
 
-#include "reversi.hpp"
+#include "flipstone/reversi.hpp"
 
 using namespace collection2;
 
