@@ -7,7 +7,7 @@ cmake_minimum_required(VERSION 3.0)
 # project configuration
 #
 project(flipstone
-    VERSION 2.2.2
+    VERSION 2.3.0
     DESCRIPTION "Core library of revrsi game"
     LANGUAGES C CXX
 )
