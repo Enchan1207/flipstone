@@ -64,7 +64,7 @@ uint8_t Reversi::createFlippablePointsList(
 
 #ifdef FLIPSTONE_USE_STL
 
-uint8_t Reversi::createFlippablePointsvector(
+uint8_t Reversi::createFlippablePointsVector(
     const Point& point,
     const Cell& cell,
     std::vector<Point>& flippablePointsVector) const {

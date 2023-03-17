@@ -46,7 +46,7 @@ TEST(ReversiTest, testCreateFlippablePointVector) {
     reversi.initField();
 
     std::vector<Point> pointVector;
-    reversi.createFlippablePointsvector(Point(2, 3), Cell::White, pointVector);
+    reversi.createFlippablePointsVector(Point(2, 3), Cell::White, pointVector);
 
     EXPECT_EQ(pointVector.size(), 1);
     EXPECT_EQ(reversi.referCell(pointVector[0]), Cell::Black);

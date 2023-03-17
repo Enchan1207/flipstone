@@ -91,7 +91,7 @@ class Reversi final {
      *
      * @note オセロのルール上、戻り値が18を超えることはありません。
      */
-    uint8_t createFlippablePointsvector(
+    uint8_t createFlippablePointsVector(
         const Point& point,
         const Cell& cell,
         std::vector<Point>& flippablePointsVector) const;
