@@ -16,3 +16,8 @@ target_include_directories(flipstone PUBLIC
 target_compile_options(flipstone PRIVATE
     -Wall
 )
+if(FLIPSTONE_USE_STL)
+    target_compile_definitions(flipstone PRIVATE
+        FLIPSTONE_USE_STL=1
+    )
+endif()

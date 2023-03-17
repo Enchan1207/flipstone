@@ -7,6 +7,10 @@
 
 #include <collection2/list.hpp>
 
+#ifdef FLIPSTONE_USE_STL
+#include <vector>
+#endif
+
 #include "field.hpp"
 
 namespace flipstone {
@@ -75,6 +79,23 @@ class Reversi final {
         const Point& point,
         const Cell& cell,
         collection2::List<Point>& flippablePointsList) const;
+
+#ifdef FLIPSTONE_USE_STL
+    /**
+     * @brief ある石を置いたときに全方向についてひっくり返せる位置のベクターを作成する
+     *
+     * @param point 位置
+     * @param cell 置く石
+     * @param flippablePointsVector 結果格納先
+     * @return int8_t ひっくり返せる石の個数
+     *
+     * @note オセロのルール上、戻り値が18を超えることはありません。
+     */
+    uint8_t createFlippablePointsvector(
+        const Point& point,
+        const Cell& cell,
+        std::vector<Point>& flippablePointsVector) const;
+#endif
 
     /**
      * @brief 特定位置に石を置く

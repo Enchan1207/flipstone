@@ -14,7 +14,7 @@ bool Field::convertPointToInternalDataIndex(const Point& point, uint8_t& index) 
     if (candidate < 0 || candidate > 63) {
         return false;
     }
-    index = candidate;
+    index = static_cast<uint8_t>(candidate);
     return true;
 }
 

@@ -62,6 +62,33 @@ uint8_t Reversi::createFlippablePointsList(
     return summary;
 }
 
+#ifdef FLIPSTONE_USE_STL
+
+uint8_t Reversi::createFlippablePointsvector(
+    const Point& point,
+    const Cell& cell,
+    std::vector<Point>& flippablePointsVector) const {
+    uint8_t summary = 0;
+    for (uint8_t i = 0; i < 8; i++) {
+        // 指定方向にスライス
+        const Direction direction = allDirections[i];
+        const FieldSlice slice = field.slice(point, direction);
+        const uint8_t flippableCount = slice.getFlippableCount(cell);
+        summary += flippableCount;
+
+        // 得られた結果をリストに追加していく
+        Point startPoint = slice.startPoint;
+        startPoint.advance(slice.direction);
+        for (uint8_t j = 0; j < flippableCount; j++) {
+            flippablePointsVector.push_back(startPoint);
+            startPoint.advance(slice.direction);
+        }
+    }
+    return summary;
+}
+
+#endif
+
 bool Reversi::putStone(const Point& point, const Cell& cell) {
     // ひっくり返せる場所のリストを取得
     const uint8_t pointsListSize = 20;
