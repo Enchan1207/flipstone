@@ -94,31 +94,31 @@ TEST(FieldTest, testSample) {
     }
 
     // いろんな方向から切り出してみる
-    FieldSlice fieldSlice1;
-    EXPECT_EQ(field.sample(Point(0, 0), Direction(0, 1), fieldSlice1), 8);
+    FieldSlice fieldSlice1 = field.slice(Point(0, 0), Direction(0, 1));
+    EXPECT_EQ(fieldSlice1.sampleSize, 8);
     for (size_t i = 0; i < 8; i++) {
-        EXPECT_EQ(fieldSlice1.sample[i], (i % 2 == 0) ? Cell::Black : Cell::White);
+        EXPECT_EQ(fieldSlice1.sample(i), (i % 2 == 0) ? Cell::Black : Cell::White);
     }
-    EXPECT_EQ(fieldSlice1.sample[8], Cell::Empty);
+    EXPECT_EQ(fieldSlice1.sample(8), Cell::Empty);
 
-    FieldSlice fieldSlice2;
-    EXPECT_EQ(field.sample(Point(1, 0), Direction(0, 1), fieldSlice2), 8);
+    FieldSlice fieldSlice2 = field.slice(Point(1, 0), Direction(0, 1));
+    EXPECT_EQ(fieldSlice2.sampleSize, 8);
     for (size_t i = 0; i < 8; i++) {
-        EXPECT_EQ(fieldSlice2.sample[i], (i % 2 == 0) ? Cell::White : Cell::Black);
+        EXPECT_EQ(fieldSlice2.sample(i), (i % 2 == 0) ? Cell::White : Cell::Black);
     }
-    EXPECT_EQ(fieldSlice2.sample[8], Cell::Empty);
+    EXPECT_EQ(fieldSlice2.sample(8), Cell::Empty);
 
-    FieldSlice fieldSlice3;
-    EXPECT_EQ(field.sample(Point(0, 0), Direction(1, 1), fieldSlice3), 8);
+    FieldSlice fieldSlice3 = field.slice(Point(0, 0), Direction(1, 1));
+    EXPECT_EQ(fieldSlice3.sampleSize, 8);
     for (size_t i = 0; i < 8; i++) {
-        EXPECT_EQ(fieldSlice3.sample[i], Cell::Black);
+        EXPECT_EQ(fieldSlice3.sample(i), Cell::Black);
     }
-    EXPECT_EQ(fieldSlice3.sample[8], Cell::Empty);
+    EXPECT_EQ(fieldSlice3.sample(8), Cell::Empty);
 
-    FieldSlice fieldSlice4;
-    EXPECT_EQ(field.sample(Point(1, 0), Direction(1, 1), fieldSlice4), 7);
+    FieldSlice fieldSlice4 = field.slice(Point(1, 0), Direction(1, 1));
+    EXPECT_EQ(fieldSlice4.sampleSize, 7);
     for (size_t i = 0; i < 7; i++) {
-        EXPECT_EQ(fieldSlice4.sample[i], Cell::White);
+        EXPECT_EQ(fieldSlice4.sample(i), Cell::White);
     }
-    EXPECT_EQ(fieldSlice4.sample[7], Cell::Empty);
+    EXPECT_EQ(fieldSlice4.sample(7), Cell::Empty);
 }

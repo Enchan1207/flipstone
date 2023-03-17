@@ -56,21 +56,20 @@ uint8_t Field::totalizeCell(const Cell state) const {
     return sum;
 }
 
-int8_t Field::sample(const Point& point, const Direction& direction, FieldSlice& slice) const {
-    // sliceに情報を設定
-    slice.startPoint = point;
-    slice.direction = direction;
-
+FieldSlice Field::slice(const Point& point, const Direction& direction) const {
     // 端または石が置かれているところまで読む
+    Cell sample[9];
     Point samplePoint = point;
-    int8_t sampleIndex = 0;
+    uint8_t availableSampleSize = 0;
     Cell cell = Cell::Empty;
     while (readCell(samplePoint, cell)) {
-        slice.sample[sampleIndex] = cell;
+        sample[availableSampleSize] = cell;
         samplePoint.advance(direction);
-        sampleIndex++;
+        availableSampleSize++;
     }
-    return sampleIndex;
+
+    // 結果を生成してreturn
+    return FieldSlice(point, direction, sample, availableSampleSize);
 }
 
 }  // namespace flipstone

@@ -17,6 +17,11 @@ class Reversi final {
     /// @brief フィールド
     Field field;
 
+    /// @brief 全探索方向
+    const Direction allDirections[8] = {
+        Direction(1, 0), Direction(-1, 0), Direction(0, 1), Direction(0, -1),
+        Direction(1, 1), Direction(-1, 1), Direction(1, -1), Direction(-1, -1)};
+
     /**
      * @brief 指定位置の石をひっくり返す
      *
@@ -27,24 +32,6 @@ class Reversi final {
      *       石が置かれていない場合は Cell::Empty が返ります。
      */
     Cell flipStone(const Point& point);
-
-    /**
-     * @brief ある石を置いたときに特定方向にひっくり返せる位置のリストを作成する
-     *
-     * @param point 石を置く位置
-     * @param cell 置く石
-     * @param direction 探索方向
-     * @param flippablePointsList 結果格納先 (nullable)
-     * @return int8_t 個数
-     *
-     * @note リストに追加される数は最大でも6です(オセロのルール上)。
-     *       第三引数にnullptrが渡されると、ひっくり返る石の個数のみが返ります。
-     */
-    uint8_t createFlippablePointsList(
-        const Point& point,
-        const Cell& cell,
-        const Direction& direction,
-        collection2::List<Point>* flippablePointsList) const;
 
    public:
     /**
@@ -64,30 +51,41 @@ class Reversi final {
     Cell referCell(const Point& point) const;
 
     /**
+     * @brief ある石を置いたときに特定方向にひっくり返せる石の数を計算する
+     *
+     * @param point 石を置く位置
+     * @param cell 置く石
+     * @return uint8_t ひっくり返せる石の個数
+     *
+     * @note オセロのルール上、戻り値が18を超えることはありません。
+     */
+    uint8_t getFlippableStonesCount(const Point& point, const Cell& cell) const;
+
+    /**
      * @brief ある石を置いたときに全方向についてひっくり返せる位置のリストを作成する
      *
      * @param point 位置
-     * @param cell 置く石の種類
-     * @param flippablePointsList 結果格納先 (nullable)
-     * @return int8_t 個数
+     * @param cell 置く石
+     * @param flippablePointsList 結果格納先
+     * @return int8_t ひっくり返せる石の個数
      *
-     * @note リストに追加される数は最大でも18です(オセロのルール上)。
-     *       第三引数にnullptrが渡されると、ひっくり返る石の個数のみが返ります。
+     * @note オセロのルール上、戻り値が18を超えることはありません。
      */
     uint8_t createFlippablePointsList(
         const Point& point,
         const Cell& cell,
-        collection2::List<Point>* flippablePointsList) const;
+        collection2::List<Point>& flippablePointsList) const;
 
     /**
      * @brief 特定位置に石を置く
      *
      * @param point 位置
      * @param cell 置く石の種類
+     * @return 置くことができたか
      *
      * @note この関数により、オセロのルールに従い盤面が更新されます。
      */
-    void putStone(const Point& point, const Cell& cell);
+    bool putStone(const Point& point, const Cell& cell);
 
     /**
      * @brief 特定の石を置ける場所があるか調べる

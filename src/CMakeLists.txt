@@ -6,6 +6,7 @@ cmake_minimum_required(VERSION 3.0)
 add_library(flipstone)
 target_sources(flipstone PRIVATE
     field.cpp
+    fieldslice.cpp
     reversi.cpp
 )
 target_include_directories(flipstone PUBLIC
