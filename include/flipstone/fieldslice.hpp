@@ -5,28 +5,58 @@
 #ifndef FLIPSTONE_FIELD_SLICE_H
 #define FLIPSTONE_FIELD_SLICE_H
 
+#include <cstddef>
+
 #include "cell.hpp"
 #include "direction.hpp"
 #include "point.hpp"
 
 namespace flipstone {
 
-/// @brief フィールドから抽出したセル
-struct FieldSlice final {
+/// @brief フィールドスライス
+class FieldSlice final {
+   private:
+    /// @brief 内部サンプルデータ領域
+    Cell internalSampleData[9] = {Cell::Empty};
+
+   public:
     /// @brief 開始点
-    Point startPoint = Point(-1, -1);
+    const Point startPoint = Point(-1, -1);
 
     /// @brief 方向
-    Direction direction = Direction(0, 0);
+    const Direction direction = Direction(0, 0);
 
-    /// @brief セル
-    Cell sample[9] = {Cell::Empty};
+    /// @brief 抽出したセルの有効長
+    const uint8_t sampleSize = 0;
 
-    FieldSlice() {
-        for (size_t i = 0; i < 9; i++) {
-            sample[i] = Cell::Empty;
-        }
-    }
+    /**
+     * @brief フィールドスライスを作成する
+     *
+     * @param point 開始点
+     * @param direction 方向
+     * @param sample サンプル結果
+     * @param sampleSize sampleの長さ
+     */
+    FieldSlice(const Point& point,
+               const Direction& direction,
+               const Cell* sample,
+               const uint8_t sampleSize);
+
+    /**
+     * @brief サンプルの指定インデックスにある値を返す
+     *
+     * @param index インデックス
+     * @return Cell 該当するサンプルの値
+     */
+    Cell sample(uint8_t index) const;
+
+    /**
+     * @brief 指定された石を開始点に置いた場合にひっくり返せる石の数を返す
+     *
+     * @param stone 置く石
+     * @return uint8_t ひっくり返せる石の数
+     */
+    uint8_t getFlippableCount(const Cell stone) const;
 };
 
 }  // namespace flipstone

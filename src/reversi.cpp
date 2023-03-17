@@ -29,92 +29,73 @@ Cell Reversi::referCell(const Point& point) const {
     return cell;
 }
 
-uint8_t Reversi::createFlippablePointsList(
-    const Point& point,
-    const Cell& cell,
-    const Direction& direction,
-    List<Point>* flippablePointsList) const {
-    // スライスを作成し、サンプル
-    FieldSlice slice;
-
-    // サンプル結果が3未満 -> 端に到達するまで1マスしかない = ひっくり返せる石はない
-    if (field.sample(point, direction, slice) < 3) {
-        return 0;
-    }
-
-    // 開始点にすでに石が置かれている -> ひっくり返しようがない
-    if (slice.sample[0] != Cell::Empty) {
-        return 0;
-    }
-
-    // 置けるのは白か黒だけ
-    if (cell == Cell::Empty) {
-        return 0;
-    }
-
-    // 開始点の次から順に調べていく
-    const Cell opposite = (cell == Cell::Black) ? Cell::White : Cell::Black;
-    uint8_t flippableCount = 0;
-    for (int8_t index = 1; index < 9; index++) {
-        Cell currentCell = slice.sample[index];
-
-        // 相手の石が続く限り進める
-        if (currentCell == opposite) {
-            flippableCount++;
-            continue;
-        }
-
-        // 空白が来たらカウンタをリセットする
-        if (currentCell == Cell::Empty) {
-            flippableCount = 0;
-        }
-        break;
-    }
-
-    // ひっくり返せないなら、何もしない
-    if (flippableCount == 0) {
-        return 0;
-    }
-
-    // リスト追加はスキップできる
-    if (flippablePointsList == nullptr) {
-        return flippableCount;
-    }
-
-    // ひっくり返せる石の位置をリストに追加
-    Point candidatePoint = slice.startPoint;
-    candidatePoint.advance(slice.direction);  // 一つ次から
-    for (uint8_t i = 0; i < flippableCount; i++) {
-        flippablePointsList->append(candidatePoint);
-        candidatePoint.advance(slice.direction);
-    }
-    return flippableCount;
-}
-
-uint8_t Reversi::createFlippablePointsList(
-    const Point& point,
-    const Cell& cell,
-    List<Point>* flippablePointsList) const {
-    // 探索方向を定義
-    Direction directions[8] = {
-        Direction(1, 0), Direction(-1, 0), Direction(0, 1), Direction(0, -1),
-        Direction(1, 1), Direction(-1, 1), Direction(1, -1), Direction(-1, -1)};
-
-    uint8_t allTogglableCount = 0;
+uint8_t Reversi::getFlippableStonesCount(const Point& point, const Cell& cell) const {
+    uint8_t summary = 0;
     for (uint8_t i = 0; i < 8; i++) {
-        const Direction direction = directions[i];
-        allTogglableCount += createFlippablePointsList(point, cell, direction, flippablePointsList);
+        const Direction direction = allDirections[i];
+        const FieldSlice slice = field.slice(point, direction);
+        summary += slice.getFlippableCount(cell);
     }
-    return allTogglableCount;
+    return summary;
 }
 
-void Reversi::putStone(const Point& point, const Cell& cell) {
+uint8_t Reversi::createFlippablePointsList(
+    const Point& point,
+    const Cell& cell,
+    List<Point>& flippablePointsList) const {
+    uint8_t summary = 0;
+    for (uint8_t i = 0; i < 8; i++) {
+        // 指定方向にスライス
+        const Direction direction = allDirections[i];
+        const FieldSlice slice = field.slice(point, direction);
+        const uint8_t flippableCount = slice.getFlippableCount(cell);
+        summary += flippableCount;
+
+        // 得られた結果をリストに追加していく
+        Point startPoint = slice.startPoint;
+        startPoint.advance(slice.direction);
+        for (uint8_t j = 0; j < flippableCount; j++) {
+            flippablePointsList.append(startPoint);
+            startPoint.advance(slice.direction);
+        }
+    }
+    return summary;
+}
+
+#ifdef FLIPSTONE_USE_STL
+
+uint8_t Reversi::createFlippablePointsVector(
+    const Point& point,
+    const Cell& cell,
+    std::vector<Point>& flippablePointsVector) const {
+    uint8_t summary = 0;
+    for (uint8_t i = 0; i < 8; i++) {
+        // 指定方向にスライス
+        const Direction direction = allDirections[i];
+        const FieldSlice slice = field.slice(point, direction);
+        const uint8_t flippableCount = slice.getFlippableCount(cell);
+        summary += flippableCount;
+
+        // 得られた結果をリストに追加していく
+        Point startPoint = slice.startPoint;
+        startPoint.advance(slice.direction);
+        for (uint8_t j = 0; j < flippableCount; j++) {
+            flippablePointsVector.push_back(startPoint);
+            startPoint.advance(slice.direction);
+        }
+    }
+    return summary;
+}
+
+#endif
+
+bool Reversi::putStone(const Point& point, const Cell& cell) {
     // ひっくり返せる場所のリストを取得
     const uint8_t pointsListSize = 20;
     Node<Point> flipPointsData[pointsListSize];
     List<Point> flipPointsList(flipPointsData, pointsListSize);
-    if (createFlippablePointsList(point, cell, &flipPointsList) == 0) {
-        return;
+    if (createFlippablePointsList(point, cell, flipPointsList) == 0) {
+        return false;
     }
 
     // 足元に石を置き
@@ -126,6 +107,7 @@ void Reversi::putStone(const Point& point, const Cell& cell) {
         flipStone(listCursor->element);
         listCursor = listCursor->next;
     }
+    return true;
 }
 
 Cell Reversi::flipStone(const Point& point) {
@@ -142,8 +124,7 @@ bool Reversi::hasPlacablePoint(const Cell& cell) const {
     for (uint8_t y = 0; y < 8; y++) {
         for (uint8_t x = 0; x < 8; x++) {
             const flipstone::Point point(x, y);
-            bool canPlaceOn = createFlippablePointsList(point, cell, nullptr) > 0;
-            if (canPlaceOn) {
+            if (getFlippableStonesCount(point, cell) > 0) {
                 return true;
             }
         }

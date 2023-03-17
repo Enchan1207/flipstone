@@ -32,6 +32,9 @@ target_include_directories(flipstone_test PRIVATE
     ${PROJECT_SOURCE_DIR}/include
     ${GTEST_INCLUDE_DIRS}
 )
+target_compile_definitions(flipstone_test PRIVATE
+    FLIPSTONE_USE_STL=1
+)
 
 # テストの実行
 gtest_discover_tests(flipstone_test)

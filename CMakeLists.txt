@@ -16,6 +16,11 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 #
+# build configuration
+#
+option(FLIPSTONE_USE_STL "Use both of STL and collection2 container" OFF)
+
+#
 # global dependencies
 #
 include(FetchContent)

@@ -71,16 +71,13 @@ class Field final {
     uint8_t totalizeCell(const Cell state) const;
 
     /**
-     * @brief 開始点と方向を指定してフィールド内の石の状態をサンプリングする
+     * @brief 開始点と方向を指定してフィールドをスライスする
      *
      * @param point 開始点
      * @param direction 方向
-     * @param slice 結果格納先
-     * @return int8_t 探索できた長さ
-     *
-     * @note フィールド端に到達、または石がなくなるまで探索は続きます(探索結果の最大長は8となります)。
+     * @return FieldSlice スライスされたフィールド
      */
-    int8_t sample(const Point& point, const Direction& direction, FieldSlice& slice) const;
+    FieldSlice slice(const Point& point, const Direction& direction) const;
 };
 
 }  // namespace flipstone
